@@ -32,7 +32,7 @@ trap 'error_handler' ERR
 bash -c "while true; do echo \$(date) - building ...; sleep $PING_SLEEP; done" &
 PING_LOOP_PID=$!
 
-wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh \
+wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh \
     -O miniconda.sh
 chmod +x miniconda.sh
 bash miniconda.sh -b -p $HOME/miniconda
@@ -42,7 +42,7 @@ export PATH=$HOME/miniconda/bin:$PATH
 conda config --add channels conda-forge
 
 conda update --yes conda >> $BUILD_OUTPUT 2>&1
-conda update --yes conda >> $BUILD_OUTPUT 2>&1
+#conda update --yes conda >> $BUILD_OUTPUT 2>&1
 
 # Create a testenv with the correct Python version
 conda create -n wradlib --yes pip python=$PYTHON_VERSION >> $BUILD_OUTPUT 2>&1
@@ -57,7 +57,7 @@ ls -lart $HOME/miniconda/envs/wradlib/share/gdal
 conda install --yes xmltodict >> $BUILD_OUTPUT 2>&1
 
 # Install wradlib
-git clone https://github.com/wradlib/wradlib.git@strip1.0.0 $HOME/wradlib >> $BUILD_OUTPUT 2>&1
+git clone -b strip1.0.0 --single-branch https://github.com/wradlib/wradlib.git $HOME/wradlib >> $BUILD_OUTPUT 2>&1
 echo $PWD
 ls -lart $HOME
 ls -lart $HOME/wradlib
