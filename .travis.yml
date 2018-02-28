@@ -1,0 +1,39 @@
+# run on container-based infrastructure
+sudo: false
+
+language: python
+
+addons:
+    apt:
+        packages:
+            - gfortran
+
+env:
+  global:
+    # wradlib-docs
+    - secure: "CjaL6vDvKqTaKClp6pqAlS7nyCN5WenEH0OS+zGvb2P7FF0bl5VU3xVZJl60OG0c7/ft/wsYSpFT9VzXZTuLo7+FOpiIuECOujYyAcFDU+NWS1YtRLYXj7z/8DV6VIl2BjQc/sOczF0Jv556UdNLOQP6b5KTxhx4xCCTHHQ1s1Lg14RVnUT+HiJGC8C5y0Fsh1GPTQywZ0aLAPWU7CQeRtsqH3PuBznRvmmfwkFKJhXAxdIj1lv9jBgwwpDgzPgPT7dMiGOkN0k8B5alMBRLB0SmEtabn1SHCSTExocze6SduxlGt1iPRJTY+VO9PxCmqDDiO8rD+Qya/TxnAU8Zgzxeq77ckG3er0dS4M6fsF/vre7E93VYRqI+e5XJCVsUzhlIoSrgq0OEa6UeRAJzahVXTFGhb/t4dpYjiW3yMwDUzK+gLYdClutBy7zIEu68h/4dwQDy9POEaL/8Zfwa0J64vJscOqTFj/9E4EjjQKVG8qT0QoIezTue6RMTK3BcBVRHSsACzemGKyIOzVjIbdxi9gLGf3wxRTiuzRzZ3SjC1LVaxzw982c/1xfrnJVhgU9pL+xb0yPvGNW8clZhVVEceuYRU+9zL77abDgBIxoUAzHB2LjDMCr2f3w89RQYQxDvmDsmLPXGyMQuLtIP1rIwC5+mydj9hP29KsIkgwQ="
+    - NOTEBOOKS_BUILD_DIR=$TRAVIS_BUILD_DIR
+
+matrix:
+    include:
+    - python: 3.6
+      env:
+        - PYTHON_VERSION="3.6"
+
+install:
+    - deactivate
+    - source scripts/install.sh
+
+before_script:
+    - export GDAL_DATA=$HOME/miniconda/envs/wradlib/share/gdal
+    - export WRADLIB_DATA=$HOME/wradlib-data
+    - export WRADLIB_NOTEBOOKS=$NOTEBOOKS_BUILD_DIR/notebooks
+    - export DISPLAY=:99
+    - sh -e /etc/init.d/xvfb start
+    - sleep 3
+
+script:
+    - scripts/render_notebooks.sh
+
+after_success:
+    - cd $NOTEBOOKS_BUILD_DIR && scripts/push_notebooks.sh
