@@ -82,7 +82,7 @@ conda install --yes notebook nbconvert >> $BUILD_OUTPUT 2>&1
 
 # Install coverage modules
 #if [[ "$COVERAGE" == "true" ]]; then
-#    conda install --yes coverage >> $BUILD_OUTPUT 2>&1
+conda install --yes coverage >> $BUILD_OUTPUT 2>&1
 #    pip install codecov >> $BUILD_OUTPUT 2>&1
 #fi
 
