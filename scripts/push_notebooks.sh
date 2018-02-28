@@ -43,13 +43,15 @@ if [ $TRAVIS_SECURE_ENV_VARS == 'true' ]; then
 
     git config --global user.email "wradlib-docs@wradlib.org"
     git config --global user.name "wradlib-docs-bot"
-    rm .travis.yml
+    rm -rf .travis.yml
+    rm -rf minconda.sh
+    rm -rf scripts
     git add .
     git commit -m "Render notebooks"
 
     git log
     echo "Should push now"
-    # git push https://$GH_TOKEN@github.com/wradlib/wradlib-notebooks.git devel -fq
+    git push https://$GH_TOKEN@github.com/wradlib/wradlib-notebooks.git devel -fq
 fi
 
 ls -lart
