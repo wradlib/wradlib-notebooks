@@ -1,33 +1,8 @@
 #!/usr/bin/env bash
-# Copyright (c) 2016, wradlib developers.
+# Copyright (c) 2018, wradlib developers.
 # Distributed under the MIT License. See LICENSE.txt for more info.
-# Adapted from the continuous_integration/push_notebooks.sh file from the pyart project
-# https://github.com/ARM-DOE/pyart/
 
 set -e
-
-export PING_SLEEP=30s
-export WORKDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-export BUILD_OUTPUT=$WORKDIR/build.out
-
-touch $BUILD_OUTPUT
-
-dump_output() {
-   echo Tailing the last 500 lines of output:
-   tail -500 $BUILD_OUTPUT
-}
-error_handler() {
-  echo ERROR: An error was encountered with the build.
-  dump_output
-  exit 1
-}
-
-# If an error occurs, run our error handler to output a tail of the build.
-trap 'error_handler' ERR
-
-# Set up a repeating loop to send some output to Travis.
-bash -c "while true; do echo \$(date) - building ...; sleep $PING_SLEEP; done" &
-PING_LOOP_PID=$!
 
 cd "$NOTEBOOKS_BUILD_DIR"
 
@@ -43,24 +18,11 @@ if [ $TRAVIS_SECURE_ENV_VARS == 'true' ]; then
 
     git config --global user.email "wradlib-docs@wradlib.org"
     git config --global user.name "wradlib-docs-bot"
-    rm -rf .travis.yml
     rm -rf minconda.sh
-    rm -rf scripts
-    git add .
-    git commit -m "Render notebooks"
+    git add --all .
+    git commit -m "Rendering at commit $TRAVIS_COMMIT"
+    git branch render
 
-    git log
     echo "Should push now"
-    git push https://$GH_TOKEN@github.com/wradlib/wradlib-notebooks.git devel -fq
+    git push https://$GH_TOKEN@github.com/wradlib/wradlib-notebooks.git render:devel -fq
 fi
-
-ls -lart
-cd ..
-ls -lart
-
-# The build finished without returning an error so dump a tail of the output.
-dump_output
-
-# Nicely terminate the ping output loop.
-kill $PING_LOOP_PID
-rm -rf $BUILD_OUTPUT
