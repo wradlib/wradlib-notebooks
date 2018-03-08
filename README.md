@@ -12,7 +12,6 @@ This repository consists of jupyter notebooks to give examples of wradlib usage 
 - [Clutter and Echo Classification](notebooks/classify.ipynb)
 - [Georeferencing](notebooks/georeferencing.ipynb)
 - [Match spaceborn SR (GPM/TRRM) with ground radars GR](notebooks/match3d/wradlib_match_workflow.ipynb)
-- [For Developers](notebooks/develop.ipynb)
 - [Data Interpolation](notebooks/interpolation/wradlib_ipol_example.ipynb)
 - [Adjusting rainfall estimates by rain gauges](notebooks/multisensor/wradlib_adjust_example.ipynb)
 - [Verification for precipitation estimates](notebooks/verification/wradlib_verify_example.ipynb)
