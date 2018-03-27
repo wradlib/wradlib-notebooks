@@ -32,7 +32,6 @@ conda install --yes gdal numpy scipy matplotlib netcdf4 h5py deprecation xmltodi
 # Clone and Install wradlib from git source branch getting tag
 git clone https://github.com/wradlib/wradlib.git $HOME/wradlib
 cd $HOME/wradlib
-git checkout strip1.0.0
 export WRADLIB_TAG=`git name-rev --name-only --tags HEAD`
 echo "WRADLIB_TAG " $WRADLIB_TAG
 python setup.py install
