@@ -26,8 +26,17 @@ source activate wradlib
 # Install wradlib dependencies
 conda install --yes gdal numpy scipy matplotlib netcdf4 h5py deprecation xmltodict notebook nbconvert coverage
 
-# Install wradlib from git source branch
-pip install git+https://github.com/wradlib/wradlib.git@strip1.0.0
+# PIP Install wradlib from git source branch
+#pip install git+https://github.com/wradlib/wradlib.git@master
+
+# Clone and Install wradlib from git source branch getting tag
+git clone https://github.com/wradlib/wradlib.git $HOME/wradlib
+cd $HOME/wradlib
+git checkout strip1.0.0
+export WRADLIB_TAG=`git name-rev --name-only --tags HEAD`
+echo "WRADLIB_TAG " $WRADLIB_TAG
+python setup.py install
+cd $TRAVIS_BUILD_DIR
 
 # Install wradlib-data
 git clone https://github.com/wradlib/wradlib-data.git $HOME/wradlib-data
