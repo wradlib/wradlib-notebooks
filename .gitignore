@@ -1,0 +1,18 @@
+# Ignore everything
+*
+
+# whitelist notebooks
+!*.ipynb
+!**.png
+
+# blacklist checkpoints
+*checkpoint*
+
+# whitelist scripts
+!scripts/*
+
+# Whitelist root files
+!.gitignore
+!.travis.yml
+!README.md
+!LICENSE.txt
