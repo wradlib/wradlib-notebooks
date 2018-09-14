@@ -9,7 +9,7 @@ echo "TRAVIS_PULL_REQUEST " $TRAVIS_PULL_REQUEST
 echo "TRAVIS_SECURE_ENV_VARS " $TRAVIS_SECURE_ENV_VARS
 echo "TRAVIS_TAG " $TRAVIS_TAG ${TRAVIS_TAG:1}
 
-wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh \
+wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh \
     -O miniconda.sh
 chmod +x miniconda.sh
 bash miniconda.sh -b -p $HOME/miniconda
