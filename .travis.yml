@@ -1,14 +1,11 @@
 # run on container-based infrastructure
-sudo: false
+sudo: required
 
-language: python
+language: generic
 
-addons:
-    apt:
-        packages:
-            - gfortran
+services:
+    - docker
 
-# build only master
 branches:
   only:
   - master
@@ -22,23 +19,24 @@ env:
 matrix:
     include:
     - python: 3.6
+      sudo: required
       env:
         - PYTHON_VERSION="3.6"
+        - WRADLIB_DOCKER_TAG=notebook
+
+before_install:
+    - echo $PWD
+    - env
+    - ls -lart $HOME
+    - docker pull wradlib/wradlib-docker:$WRADLIB_DOCKER_TAG
+    - source scripts/docker_run.sh
 
 install:
-    - deactivate
-    - source scripts/install.sh
-
-before_script:
-    - export GDAL_DATA=$HOME/miniconda/envs/wradlib/share/gdal
-    - export WRADLIB_DATA=$HOME/wradlib-data
-    - export WRADLIB_NOTEBOOKS=$NOTEBOOKS_BUILD_DIR/notebooks
-    - export DISPLAY=:99
-    - sh -e /etc/init.d/xvfb start
-    - sleep 3
+    - git clone https://github.com/wradlib/wradlib-data.git
+    - source scripts/install_docker.sh
 
 script:
-    - scripts/render_notebooks.sh
+    - docker exec -i -u=$UID $WRADLIB_DOCKER_TAG /bin/bash -c "source activate wradlib; cd /home/build; scripts/render_notebooks.sh"
 
 after_success:
-    - cd $NOTEBOOKS_BUILD_DIR && scripts/push_notebooks.sh
+    - docker exec -i -u=$UID $WRADLIB_DOCKER_TAG /bin/bash -c "source activate wradlib; cd /home/build; scripts/push_notebooks.sh"
