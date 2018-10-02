@@ -13,8 +13,10 @@ conda config --set show_channel_urls True
 conda config --add channels conda-forge
 
 source activate wradlib
+pip install coverage --no-deps
 
-cd /home/build
+
+cd /home/build/wradlib
 ls -lart
 python setup.py install
 

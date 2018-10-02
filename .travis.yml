@@ -33,6 +33,7 @@ before_install:
 
 install:
     - git clone https://github.com/wradlib/wradlib-data.git
+    - git clone https://github.com/wradlib/wradlib.git
     - source scripts/install_docker.sh
 
 script:
