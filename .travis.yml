@@ -22,7 +22,7 @@ matrix:
       sudo: required
       env:
         - PYTHON_VERSION="3.6"
-        - WRADLIB_DOCKER_TAG=notebook
+        - WRADLIB_DOCKER_TAG=full
 
 before_install:
     - echo $PWD
