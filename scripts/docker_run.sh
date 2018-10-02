@@ -16,7 +16,7 @@ docker run -d -ti \
             -e LOCAL_USER_ID=$UID \
             -e NOTEBOOKS_BUILD_DIR=/home/build \
             -e WRADLIB_DATA=/home/build/wradlib-data \
-            -e WRADLIB_NOTEBOOKS=/home/build/notebooks-render \
+            -e WRADLIB_NOTEBOOKS=/home/build/notebooks \
             -e PYTHON_VERSION=$PYTHON_VERSION \
             -e CI \
             -e TRAVIS \

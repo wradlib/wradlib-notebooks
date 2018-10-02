@@ -14,8 +14,8 @@ conda config --add channels conda-forge
 
 source activate wradlib
 
-cd /home/build/wradlib
 ls -lart
+cd /home/build/wradlib
 python setup.py install
 
 # print version information
