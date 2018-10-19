@@ -20,7 +20,8 @@ if [ $TRAVIS_SECURE_ENV_VARS == 'true' ]; then
     git config --global user.email "wradlib-docs@wradlib.org"
     git config --global user.name "wradlib-docs-bot"
     git checkout --orphan render
-    rm -rf miniconda.sh
+    rm -rf wradlib
+    rm -rf wradlib-data
     git add --all .
     git commit -m "Rendering at commit $TRAVIS_COMMIT"
 
