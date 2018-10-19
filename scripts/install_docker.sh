@@ -16,7 +16,7 @@ source activate wradlib
 
 ls -lart
 cd /home/build/wradlib
-python setup.py install
+python -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
 
 # print version information
 python --version
