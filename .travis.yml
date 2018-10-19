@@ -34,10 +34,14 @@ before_install:
 install:
     - git clone https://github.com/wradlib/wradlib-data.git
     - git clone https://github.com/wradlib/wradlib.git
+    - cd wradlib
+    - export WRADLIB_TAG=`git name-rev --name-only --tags HEAD`
+    - echo $WRADLIB_TAG
+    - cd $NOTEBOOKS_BUILD_DIR
     - source scripts/install_docker.sh
 
 script:
     - docker exec -i -u=$UID $WRADLIB_DOCKER_TAG /bin/bash -c "source activate wradlib; cd /home/build; scripts/render_notebooks.sh"
 
 after_success:
-    - docker exec -i -u=$UID $WRADLIB_DOCKER_TAG /bin/bash -c "source activate wradlib; cd /home/build; scripts/push_notebooks.sh"
+    - cd $NOTEBOOKS_BUILD_DIR && scripts/push_notebooks.sh
