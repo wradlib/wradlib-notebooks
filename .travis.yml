@@ -25,9 +25,6 @@ matrix:
         - WRADLIB_DOCKER_TAG=full
 
 before_install:
-    - echo $PWD
-    - env
-    - ls -lart $HOME
     - docker pull wradlib/wradlib-docker:$WRADLIB_DOCKER_TAG
     - source scripts/docker_run.sh
 
@@ -36,7 +33,6 @@ install:
     - git clone https://github.com/wradlib/wradlib.git
     - cd wradlib
     - export WRADLIB_TAG=`git name-rev --name-only --tags HEAD`
-    - echo $WRADLIB_TAG
     - cd $NOTEBOOKS_BUILD_DIR
     - source scripts/install_docker.sh
 
