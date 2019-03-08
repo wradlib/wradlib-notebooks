@@ -24,7 +24,7 @@ conda create -n wradlib --yes pip python=$PYTHON_VERSION
 source activate wradlib
 
 # Install wradlib dependencies
-conda install --yes gdal numpy scipy matplotlib=2* netcdf4 h5py deprecation xmltodict notebook nbconvert coverage
+conda install --yes gdal numpy scipy matplotlib netcdf4 h5py xarray deprecation semver xmltodict notebook nbconvert coverage
 
 # PIP Install wradlib from git source branch
 #pip install git+https://github.com/wradlib/wradlib.git@master
