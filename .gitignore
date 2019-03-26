@@ -14,5 +14,6 @@
 # Whitelist root files
 !.gitignore
 !.travis.yml
+!conftest.py
 !README.md
 !LICENSE.txt
