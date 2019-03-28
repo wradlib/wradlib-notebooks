@@ -4,7 +4,7 @@
 
 exit_status=0
 
-testrunner -n -s
+pytest -n 2 --verbose --durations=15 
 (( exit_status = ($? || $exit_status) ))
 
 exit $exit_status
