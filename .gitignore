@@ -1,6 +1,9 @@
 # Ignore everything
 *
 
+# Now, whitelist anything that's a directory
+!*/
+
 # whitelist notebooks
 !*.ipynb
 !**.png
