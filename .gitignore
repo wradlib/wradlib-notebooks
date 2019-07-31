@@ -1,15 +1,18 @@
 # Ignore everything
 *
 
-# whitelist notebooks
+# whitelist notebooks, png and shell
 !*.ipynb
-!**.png
-
-# blacklist checkpoints
-*checkpoint*
+!*.png
+!*.sh
 
 # whitelist scripts
-!scripts/*
+!scripts/
+!/scripts/*
+
+# whitelist notebooks
+!notebooks/
+!/notebooks/**
 
 # Whitelist root files
 !.gitignore
@@ -17,3 +20,9 @@
 !conftest.py
 !README.md
 !LICENSE.txt
+
+# blacklist standard notebook copies
+*-Copy*.ipynb
+
+# blacklist checkpoints
+*checkpoint*
