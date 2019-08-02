@@ -12,7 +12,7 @@
 
 # whitelist notebooks
 !notebooks/
-!/notebooks/**
+#!/notebooks/**
 
 # Whitelist root files
 !.gitignore
