@@ -14,12 +14,21 @@
 !notebooks/
 #!/notebooks/**
 
+# whitelist .dask
+!.dask/
+!/.dask/*
+
+# whitelist binder
+!binder/
+!/binder/*
+
 # Whitelist root files
 !.gitignore
 !.travis.yml
 !conftest.py
 !README.md
 !LICENSE.txt
+!Welcome_Pangeo.md
 
 # blacklist standard notebook copies
 *-Copy*.ipynb
