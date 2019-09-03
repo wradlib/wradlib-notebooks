@@ -11,7 +11,6 @@ conda config --set show_channel_urls True
 conda config --add channels conda-forge
 
 source activate wradlib
-conda update --yes xarray wradlib
 
 # cd /home/build/wradlib
 # python -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
