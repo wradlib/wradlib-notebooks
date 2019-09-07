@@ -1,0 +1,42 @@
+# run on container-based infrastructure
+sudo: required
+
+language: generic
+
+services:
+    - docker
+
+branches:
+  only:
+  - master
+
+env:
+  global:
+    # wradlib-docs-bot
+    - secure: ZYe8DeLvuDWEOX+C0lJ+OzVBJGZMqWwxXvtiOJEZGlYxJ8k3UWpvSOJLzK/+GZ+jSdb2yhNiwPvZmYkh3laKY9+jf7Uta0Xj0badm4vomT0l1R/vkge/zmfYi93y+ty1jkjDfEemC/xsZz5YjHb4XMvgLHwRIY1eZqBsm/FPJg4y3LkAaCOllxyheS9mR9GpfF5rDj1YOGjNcVrjrRT+C3j9mRuGMyiiF4Id/EEqxl0LanNpVzV4O40ST1WHWYqusTwkd4kKi5uYnR/saSwmR2cwXZu9u52JPEnc2cHMgKMnGRiCkPgvf3zz19vDIJo0bxhmVSlQy+XuxW9+SapE6rVuVc43jceU2+JGCr+R/ndcS8wsa4Knw9F7CG1tsU2nh85qjq/p8SDorRHAoAtY7H18fq03jqPPWnXscZXTyB5CXJiNsn9YclFSQDl3DoLN3kSrs0D446vveLuotcs5PaYyBob8sKJkiRgvooAQQfxzyStmM58z8pRZNvklMClzKYp1zuISG+IIF4zEpHv8Cn9F161hbfrSvIFYKynoYx4LR0INH4a8Jhfi81ssidf5iNfleQcc9wgAf+SzdEdhdsYbfMvuuk+RtZp5F+zkBcuspTKHaXbP17YVkuqeHIrMouKYAwm+/rih6hExZPXFuuEUt5o93xo68yWDgfoI02I=
+    - NOTEBOOKS_BUILD_DIR=$TRAVIS_BUILD_DIR
+
+matrix:
+    include:
+    - python: 3.7
+      sudo: required
+      env:
+        - WRADLIB_DOCKER_TAG=full
+
+before_install:
+    - docker pull wradlib/wradlib-docker:$WRADLIB_DOCKER_TAG
+    - source scripts/docker_run.sh
+
+install:
+    - git clone https://github.com/wradlib/wradlib-data.git
+    - git clone https://github.com/wradlib/wradlib.git
+    - cd wradlib
+    - export WRADLIB_TAG=`git name-rev --name-only --tags HEAD`
+    - cd $NOTEBOOKS_BUILD_DIR
+    - source scripts/install_docker.sh
+
+script:
+    - docker exec -i -u=$UID $WRADLIB_DOCKER_TAG /bin/bash -c "source activate wradlib; cd /home/build; scripts/render_notebooks.sh"
+
+after_success:
+    - cd $NOTEBOOKS_BUILD_DIR && scripts/push_notebooks.sh
