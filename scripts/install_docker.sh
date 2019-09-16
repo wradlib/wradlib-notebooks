@@ -2,7 +2,7 @@
 # Copyright (c) 2017-2018, wradlib developers.
 # Distributed under the MIT License. See LICENSE.txt for more info.
 
-cat << EOF | docker exec -i $WRADLIB_DOCKER_TAG \
+cat << EOF | docker exec -i -u=$UID $WRADLIB_DOCKER_TAG \
                         /bin/bash
 
 export PYTHONUNBUFFERED=1
