@@ -11,6 +11,7 @@ conda config --set show_channel_urls True
 conda config --add channels conda-forge
 
 source activate wradlib
+conda install h5netcdf xarray
 
 cd /home/build/wradlib
 python setup.py sdist
