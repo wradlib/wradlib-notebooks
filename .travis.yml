@@ -1,10 +1,7 @@
 # run on container-based infrastructure
-sudo: required
+sudo: false
 
-language: generic
-
-services:
-    - docker
+language: python
 
 branches:
   only:
@@ -18,25 +15,52 @@ env:
 
 matrix:
     include:
-    - python: 3.7
-      sudo: required
-      env:
-        - WRADLIB_DOCKER_TAG=full
-
-before_install:
-    - docker pull wradlib/wradlib-docker:$WRADLIB_DOCKER_TAG
-    - source scripts/docker_run.sh
+      - python: 3.6
+        env:
+          - PYTHON_VERSION="3.6"
+          - GDAL_VERSION="2"
+      - python: 3.7
+        sudo: required
+        dist: xenial
+        services: xvfb
+        env:
+          - PYTHON_VERSION="3.7"
+          - GDAL_VERSION="2"
+      - python: 3.8
+        sudo: required
+        dist: xenial
+        services: xvfb
+        env:
+          - PYTHON_VERSION="3.8"
+          - GDAL_VERSION="2"
+      - python: 3.6
+        env:
+          - PYTHON_VERSION="3.6"
+          - GDAL_VERSION="3"
+      - python: 3.7
+        sudo: required
+        dist: xenial
+        services: xvfb
+        env:
+          - PYTHON_VERSION="3.7"
+          - GDAL_VERSION="3"
+      - python: 3.8
+        sudo: required
+        dist: xenial
+        services: xvfb
+        env:
+          - PYTHON_VERSION="3.8"
+          - GDAL_VERSION="3"
+          - DEPLOY="true"
 
 install:
-    - git clone https://github.com/wradlib/wradlib-data.git
-    - git clone https://github.com/wradlib/wradlib.git
-    - cd wradlib
-    - export WRADLIB_TAG=`git name-rev --name-only --tags HEAD`
-    - cd $NOTEBOOKS_BUILD_DIR
-    - source scripts/install_docker.sh
+    - deactivate
+    - source scripts/install.sh
 
 script:
-    - docker exec -i -u=$UID $WRADLIB_DOCKER_TAG /bin/bash -c "source activate wradlib; cd /home/build; scripts/render_notebooks.sh"
+    - scripts/render_notebooks.sh;
 
 after_success:
-    - cd $NOTEBOOKS_BUILD_DIR && scripts/push_notebooks.sh
+    - if [ "${DEPLOY}" == "true" ]; then
+        cd $NOTEBOOKS_BUILD_DIR && scripts/push_notebooks.sh;
+      fi;
