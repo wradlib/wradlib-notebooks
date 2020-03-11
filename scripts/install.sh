@@ -27,6 +27,7 @@ if ! [ -x "$(command -v conda)" ]; then
             -O miniconda.sh
         chmod +x miniconda.sh
         bash miniconda.sh -b -p $HOME/miniconda
+        rm -rf miniconda.sh
         export PATH=$HOME/miniconda/bin:$PATH
         source $HOME/miniconda/etc/profile.d/conda.sh
         WRADLIB_ENV="travis_wradlib"
