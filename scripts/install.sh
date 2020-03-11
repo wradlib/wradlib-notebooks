@@ -68,11 +68,15 @@ conda config --set channel_priority strict
 conda update --yes conda
 
 # Install wradlib dependencies
-DEPS="gdal=$GDAL_VERSION numpy scipy matplotlib netcdf4 h5py h5netcdf xarray cartopy deprecation xmltodict semver notebook nbconvert coverage codecov pytest pytest-cov pytest-xdist pytest-sugar"
+WRADLIB_DEPS="gdal=$GDAL_VERSION numpy scipy matplotlib netcdf4 h5py h5netcdf xarray dask cartopy deprecation xmltodict semver"
+NOTEBOOK_DEPS="notebook nbconvert tqdm"
+MISC_DEPS="coverage codecov psutil pytest pytest-cov pytest-xdist pytest-sugar"
 
 # Create environment with the correct Python version and the needed dependencies
-echo $DEPS
-conda create -n $WRADLIB_ENV --yes pip python=$WRADLIB_PYTHON $DEPS
+echo $WRADLIB_DEPS
+echo $NOTEBOOK_DEPS
+echo $MISC_DEPS
+conda create -n $WRADLIB_ENV --yes pip python=$WRADLIB_PYTHON $WRADLIB_DEPS $NOTEBOOK_DEPS $MISC_DEPS
 conda activate $WRADLIB_ENV
 
 # Install wradlib-data if not set

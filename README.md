@@ -7,7 +7,7 @@ This repository consists of jupyter notebooks to give examples of wradlib usage 
 - [An incomplete introduction to python](notebooks/learnpython.ipynb)
 - [Getting started with wradlib](notebooks/basics.ipynb)
 - [Data Input - Data Output](notebooks/fileio.ipynb)
-- [Attenuationb correction](notebooks/attenuation/wradlib_attenuation.ipynb)
+- [Attenuation correction](notebooks/attenuation/wradlib_attenuation.ipynb)
 - [Beam Blockage Calculation using DEM](notebooks/beamblockage/wradlib_beamblock.ipynb)
 - [Clutter and Echo Classification](notebooks/classify.ipynb)
 - [Georeferencing](notebooks/georeferencing.ipynb)
