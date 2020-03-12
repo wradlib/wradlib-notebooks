@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright (c) 2017-2018, wradlib developers.
+# Copyright (c) 2017-2020, wradlib developers.
 # Distributed under the MIT License. See LICENSE.txt for more info.
 
 # print env vars
