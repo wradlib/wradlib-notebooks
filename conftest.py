@@ -55,7 +55,7 @@ class NotebookItem(pytest.Item):
             except CellExecutionError as e:
                 raise NotebookException(e)
 
-        with io.open(self.fspath, "wt") as f:
+        with open(self.fspath, "wt", encoding='utf-8') as f:
             nbformat.write(nb, f)
 
     def repr_failure(self, excinfo):

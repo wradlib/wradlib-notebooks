@@ -36,7 +36,7 @@ install:
   - "conda list"
 
   # build wradlib
-  - "python -m pip install wradlib --no-deps --ignore-installed --no-cache-dir"
+  - "python -m pip install C:\projects\wradlib\wradlib --no-deps --ignore-installed --no-cache-dir"
 
 build: false
 
