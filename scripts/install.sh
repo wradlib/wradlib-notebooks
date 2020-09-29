@@ -69,8 +69,12 @@ conda config --set channel_priority strict
 conda update --yes conda
 
 # Install wradlib dependencies
-WRADLIB_DEPS="gdal=$GDAL_VERSION numpy scipy matplotlib netcdf4 h5py h5netcdf xarray dask cartopy deprecation xmltodict semver"
-NOTEBOOK_DEPS="notebook nbconvert tqdm"
+# pin matplotlib for GDAL=2 (cartopy-clash)
+if [ $GDAL_VERSION == '2' ]; then
+    MPL="=3.2"
+fi
+WRADLIB_DEPS="gdal=$GDAL_VERSION numpy scipy matplotlib$MPL netcdf4 h5py h5netcdf xarray dask cartopy deprecation xmltodict semver"
+NOTEBOOK_DEPS="notebook nbconvert tqdm ipython=7*"
 MISC_DEPS="coverage codecov psutil pytest pytest-cov pytest-xdist pytest-sugar"
 
 # Create environment with the correct Python version and the needed dependencies
