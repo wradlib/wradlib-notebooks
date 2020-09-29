@@ -48,6 +48,11 @@ class NotebookItem(pytest.Item):
     def runtest(self):
         cur_dir = os.path.dirname(self.fspath)
 
+        # See https://bugs.python.org/issue37373
+        if sys.version_info[0] == 3 and sys.version_info[1] >= 8 and sys.platform.startswith('win'):
+            import asyncio
+            asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
         with self.fspath.open() as f:
             nb = nbformat.read(f, as_version=4)
             try:
