@@ -40,5 +40,9 @@ install:
 
 build: false
 
+branches:
+  only:
+    - master
+
 test_script:
   - "pytest -vv --durations=15 --pyargs notebooks"
