@@ -15,33 +15,20 @@ env:
 
 matrix:
     include:
-      - python: 3.6
-        env:
-          - PYTHON_VERSION="3.6"
-          - GDAL_VERSION="2"
       - python: 3.7
         sudo: required
         dist: xenial
         services: xvfb
         env:
+          - WRADLIB_NOTEBOOKTEST="true"
           - PYTHON_VERSION="3.7"
           - GDAL_VERSION="2"
-      - python: 3.8
-        sudo: required
-        dist: xenial
-        services: xvfb
-        env:
-          - PYTHON_VERSION="3.8"
-          - GDAL_VERSION="2"
-      - python: 3.6
-        env:
-          - PYTHON_VERSION="3.6"
-          - GDAL_VERSION="3"
       - python: 3.7
         sudo: required
         dist: xenial
         services: xvfb
         env:
+          - WRADLIB_NOTEBOOKTEST="true"
           - PYTHON_VERSION="3.7"
           - GDAL_VERSION="3"
       - python: 3.8
@@ -49,13 +36,22 @@ matrix:
         dist: xenial
         services: xvfb
         env:
+          - WRADLIB_NOTEBOOKTEST="true"
           - PYTHON_VERSION="3.8"
           - GDAL_VERSION="3"
           - DEPLOY="true"
+      - python: 3.9
+        sudo: required
+        dist: xenial
+        services: xvfb
+        env:
+          - WRADLIB_NOTEBOOKTEST="true"
+          - PYTHON_VERSION="3.9"
+          - GDAL_VERSION="3"
 
 install:
     - deactivate
-    - source scripts/install.sh
+    - source ci/travis/install.sh
 
 script:
     - scripts/render_notebooks.sh;
