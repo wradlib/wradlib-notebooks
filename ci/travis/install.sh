@@ -33,11 +33,13 @@ echo "GDAL_VERSION:" $GDAL_VERSION
 WRADLIB_DEPS="gdal=$GDAL_VERSION numpy scipy matplotlib netcdf4 h5py h5netcdf xarray dask cartopy deprecation xmltodict semver"
 NOTEBOOK_DEPS="notebook nbconvert psutil tqdm"
 MISC_DEPS="coverage codecov pytest pytest-cov pytest-xdist pytest-sugar"
+WRADLIB_DEPS="$WRADLIB_DEPS $NOTEBOOK_DEPS"
 
-# Install twine for pypi upload
-if [[ "$DEPLOY" == "true" ]]; then
-    MISC_DEPS="$MISC_DEPS twine"
-fi
+# Create environment with the correct Python version and the needed dependencies
+echo $WRADLIB_DEPS
+echo $MISC_DEPS
+micromamba create --yes --strict-channel-priority --name $WRADLIB_ENV python=$WRADLIB_PYTHON pip $WRADLIB_DEPS $MISC_DEPS --channel conda-forge
+micromamba activate $WRADLIB_ENV
 
 # Install wradlib-data if not set
 if [ -z "${WRADLIB_DATA+x}" ]; then
@@ -45,18 +47,16 @@ if [ -z "${WRADLIB_DATA+x}" ]; then
     export WRADLIB_DATA=$WRADLIB_BUILD_DIR/wradlib-data
 fi
 
-# Install wradlib-notebooks if $WRADLIB_NOTEBOOKTEST is set
-if [ -n "${WRADLIB_NOTEBOOKTEST+x}" ]; then
-    git clone --depth=1 https://github.com/wradlib/wradlib-notebooks.git $NOTEBOOKS_BUILD_DIR/wradlib-notebooks
-    export WRADLIB_NOTEBOOKS=$NOTEBOOKS_BUILD_DIR/wradlib-notebooks
-    WRADLIB_DEPS="$WRADLIB_DEPS $NOTEBOOK_DEPS"
-fi
+# Clone latest wradlib
+git clone https://github.com/wradlib/wradlib.git $NOTEBOOKS_BUILD_DIR/wradlib
+cd wradlib
+export WRADLIB_TAG=`git name-rev --name-only --tags HEAD`
 
-# Create environment with the correct Python version and the needed dependencies
-echo $WRADLIB_DEPS
-echo $MISC_DEPS
-micromamba create --yes --strict-channel-priority --name $WRADLIB_ENV python=$WRADLIB_PYTHON pip $WRADLIB_DEPS $MISC_DEPS --channel conda-forge
-micromamba activate $WRADLIB_ENV
+# Install wradlib
+python setup.py sdist
+python -m pip install . --no-deps --ignore-installed --no-cache-dir
+
+cd $NOTEBOOKS_BUILD_DIR
 
 # create sdist (needed to create version.py)
 python setup.py sdist
