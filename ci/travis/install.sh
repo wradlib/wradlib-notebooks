@@ -58,11 +58,6 @@ python -m pip install . --no-deps --ignore-installed --no-cache-dir
 
 cd $NOTEBOOKS_BUILD_DIR
 
-# create sdist (needed to create version.py)
-python setup.py sdist
-# install wradlib
-python -m pip install . --no-deps --ignore-installed --no-cache-dir
-
 # print some stuff
 python --version
 pip --version
