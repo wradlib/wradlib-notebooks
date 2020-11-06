@@ -4,6 +4,7 @@ environment:
 
   matrix:
     - PYTHON_VERSION: "3.8"
+    - PYTHON_VERSION: "3.9"
 
 install:
   # clone wradlib-data
@@ -22,13 +23,11 @@ install:
   # Create and activate a conda environment with the wanted Python version
   - "conda config --add channels conda-forge"
   - "conda config --set channel_priority strict"
-  - "conda update --yes --quiet conda"
+  - "conda install --yes mamba"
   - "conda config --set changeps1 no"
-  - "conda create --yes --quiet -n wradlib python=%PYTHON_VERSION%"
-  - "activate wradlib"
-
   # Install wradlib dependecies
-  - "conda install -y -q %MKL% gdal numpy scipy matplotlib netcdf4 h5py h5netcdf xarray dask cartopy deprecation xmltodict coverage codecov pytest pytest-cov pytest-xdist pytest-sugar notebook nbconvert psutil tqdm"
+  - "mamba create --yes --quiet -n wradlib-tests python=%PYTHON_VERSION% %MKL% gdal numpy scipy matplotlib-base netcdf4 h5py h5netcdf xarray dask cartopy deprecation xmltodict coverage codecov pytest pytest-cov pytest-xdist pytest-sugar notebook nbconvert psutil tqdm"
+  - "activate wradlib-tests"
 
   # Some checks
   - "python -VV"

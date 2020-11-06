@@ -73,7 +73,7 @@ conda update --yes conda
 if [ $GDAL_VERSION == '2' ]; then
     MPL="=3.2"
 fi
-WRADLIB_DEPS="gdal=$GDAL_VERSION numpy scipy matplotlib$MPL netcdf4 h5py h5netcdf xarray dask cartopy deprecation xmltodict semver"
+WRADLIB_DEPS="gdal=$GDAL_VERSION numpy scipy matplotlib-base$MPL netcdf4 h5py h5netcdf xarray dask cartopy deprecation xmltodict semver"
 NOTEBOOK_DEPS="notebook nbconvert tqdm ipython=7*"
 MISC_DEPS="coverage codecov psutil pytest pytest-cov pytest-xdist pytest-sugar"
 
