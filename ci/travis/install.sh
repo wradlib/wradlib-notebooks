@@ -29,9 +29,15 @@ echo "WRADLIB_ENV:" $WRADLIB_ENV
 echo "WRADLIB_PYTHON:" $WRADLIB_PYTHON
 echo "GDAL_VERSION:" $GDAL_VERSION
 
+# Install wradlib dependencies
+# pin matplotlib for GDAL=2 (cartopy-clash)
+if [ $GDAL_VERSION == '2' ]; then
+    MPL="=3.2"
+fi
+
 # setup wradlib dependencies
-WRADLIB_DEPS="gdal=$GDAL_VERSION numpy scipy matplotlib netcdf4 h5py h5netcdf xarray dask cartopy deprecation xmltodict semver"
-NOTEBOOK_DEPS="notebook nbconvert psutil tqdm"
+WRADLIB_DEPS="gdal=$GDAL_VERSION numpy scipy matplotlib$MPL netcdf4 h5py h5netcdf xarray dask cartopy deprecation xmltodict semver"
+NOTEBOOK_DEPS="notebook nbconvert psutil tqdm ipython=7*"
 MISC_DEPS="coverage codecov pytest pytest-cov pytest-xdist pytest-sugar"
 WRADLIB_DEPS="$WRADLIB_DEPS $NOTEBOOK_DEPS"
 
@@ -44,7 +50,7 @@ micromamba activate $WRADLIB_ENV
 # Install wradlib-data if not set
 if [ -z "${WRADLIB_DATA+x}" ]; then
     git clone https://github.com/wradlib/wradlib-data.git $NOTEBOOKS_BUILD_DIR/wradlib-data
-    export WRADLIB_DATA=$WRADLIB_BUILD_DIR/wradlib-data
+    export WRADLIB_DATA=$NOTEBOOKS_BUILD_DIR/wradlib-data
 fi
 
 # Clone latest wradlib
