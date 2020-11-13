@@ -38,7 +38,7 @@ fi
 # setup wradlib dependencies
 WRADLIB_DEPS="gdal=$GDAL_VERSION numpy scipy matplotlib$MPL netcdf4 h5py h5netcdf xarray dask cartopy deprecation xmltodict semver"
 NOTEBOOK_DEPS="notebook nbconvert psutil tqdm ipython=7*"
-MISC_DEPS="coverage codecov pytest pytest-cov pytest-xdist pytest-sugar"
+MISC_DEPS="coverage codecov pytest pytest-cov pytest-xdist pytest-sugar wetterdienst"
 WRADLIB_DEPS="$WRADLIB_DEPS $NOTEBOOK_DEPS"
 
 # Create environment with the correct Python version and the needed dependencies
