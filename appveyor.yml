@@ -26,7 +26,7 @@ install:
   - "conda install --yes mamba"
   - "conda config --set changeps1 no"
   # Install wradlib dependecies
-  - "mamba create --yes --quiet -n wradlib-tests python=%PYTHON_VERSION% %MKL% gdal numpy scipy matplotlib-base netcdf4 h5py h5netcdf xarray dask cartopy deprecation xmltodict coverage codecov pytest pytest-cov pytest-xdist pytest-sugar notebook nbconvert psutil tqdm"
+  - "mamba create --yes --quiet -n wradlib-tests python=%PYTHON_VERSION% %MKL% gdal numpy scipy matplotlib-base netcdf4 h5py h5netcdf xarray dask cartopy deprecation xmltodict coverage codecov pytest pytest-cov pytest-xdist pytest-sugar notebook nbconvert psutil tqdm wetterdienst"
   - "activate wradlib-tests"
 
   # Some checks
