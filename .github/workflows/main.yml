@@ -59,7 +59,6 @@ jobs:
         python -c "import wradlib; print(wradlib.show_versions())"
     - name: Render with pytest
       run: |
-        echo $WRADLIB_DATA
         export WRADLIB_DATA=`realpath $WRADLIB_DATA`
         pytest -n auto --verbose --durations=15 --pyargs notebooks
     - name: Commit files
@@ -131,7 +130,6 @@ jobs:
         python -c "import wradlib; print(wradlib.show_versions())"
     - name: Render with pytest
       run: |
-        echo $WRADLIB_DATA
         export WRADLIB_DATA=`python -c "import os, sys; print(os.path.realpath(sys.argv[1]))" $WRADLIB_DATA`
         pytest -n auto --verbose --doctest-modules --durations=15 --cov-report xml:coverage.xml --cov=wradlib --pyargs notebooks
 
@@ -192,6 +190,7 @@ jobs:
       run: |
         eval "$(./micromamba shell hook -s bash)"
         micromamba activate wradlib-tests
+        export WRADLIB_DATA=`python -c "import os, sys; print(os.path.realpath(sys.argv[1]))" $WRADLIB_DATA`
         pytest -n auto --verbose --doctest-modules --durations=15 --cov-report xml:coverage.xml --cov=wradlib --pyargs notebooks
 
   trigger_rtd:
