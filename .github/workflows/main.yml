@@ -10,7 +10,7 @@ on:
 
 jobs:
   build_0:
-    name: wradlib notebook linux
+    name: wradlib notebooks - linux
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -39,7 +39,7 @@ jobs:
         mv .bashrcBAK "$HOME/.bashrc"
     - name: Install deps
       run: |
-        micromamba create -y -n wradlib-tests python=${{ matrix.python-version }} -f ci/requirements/notebooktests.txt --channel conda-forge
+        micromamba create -y -n wradlib-tests python=${{ matrix.python-version }} -f ci/requirements/notebooks.txt --channel conda-forge
         echo "set -eo pipefail" >> "$HOME/.bash_profile"
         echo "micromamba activate wradlib-tests" >> "$HOME/.bash_profile"
     - name: Install wradlib
@@ -111,7 +111,7 @@ jobs:
         mv .bashrcBAK "$HOME/.bashrc"
     - name: Install deps
       run: |
-        micromamba create -y -n wradlib-tests python=${{ matrix.python-version }} -f ci/requirements/unittests.txt --channel conda-forge
+        micromamba create -y -n wradlib-tests python=${{ matrix.python-version }} -f ci/requirements/notebooks.txt --channel conda-forge
         echo "set -eo pipefail" >> "$HOME/.bash_profile"
         echo "micromamba activate wradlib-tests" >> "$HOME/.bash_profile"
     - name: Install wradlib
@@ -133,7 +133,7 @@ jobs:
       run: |
         echo $WRADLIB_DATA
         export WRADLIB_DATA=`python -c "import os, sys; print(os.path.realpath(sys.argv[1]))" $WRADLIB_DATA`
-        pytest -n auto --verbose --doctest-modules --durations=15 --cov-report xml:coverage.xml --cov=wradlib --pyargs wradlib
+        pytest -n auto --verbose --doctest-modules --durations=15 --cov-report xml:coverage.xml --cov=wradlib --pyargs notebooks
 
   build_2:
     name: wradlib notebooks - windows
@@ -167,7 +167,7 @@ jobs:
       run: |
         $Env:MAMBA_ROOT_PREFIX=(Join-Path -Path $HOME -ChildPath micromamba)
         $Env:MAMBA_EXE=(Join-Path -Path (Get-Location) -ChildPath micromamba.exe)
-        .\micromamba.exe create -y -n wradlib-tests python=${{ matrix.python-version }} -f ci/requirements/unittests.txt --channel conda-forge
+        .\micromamba.exe create -y -n wradlib-tests python=${{ matrix.python-version }} -f ci/requirements/notebooks.txt --channel conda-forge
       shell: powershell
     - name: Install wradlib
       run: |
@@ -192,7 +192,7 @@ jobs:
       run: |
         eval "$(./micromamba shell hook -s bash)"
         micromamba activate wradlib-tests
-        pytest -n auto --verbose --doctest-modules --durations=15 --cov-report xml:coverage.xml --cov=wradlib --pyargs wradlib
+        pytest -n auto --verbose --doctest-modules --durations=15 --cov-report xml:coverage.xml --cov=wradlib --pyargs notebooks
 
   trigger_rtd:
     if: github.event_name == 'push' || github.event_name == 'release'
