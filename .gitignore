@@ -18,13 +18,15 @@
 !.dask/
 !/.dask/*
 
+# whitelist ci
+!ci/
+
 # whitelist binder
 !binder/
 !/binder/*
 
 # Whitelist root files
 !.gitignore
-!.travis.yml
 !conftest.py
 !README.md
 !LICENSE.txt
