@@ -196,7 +196,7 @@ jobs:
 
   trigger_rtd:
     if: github.event_name == 'push' || github.event_name == 'release'
-    needs: [lint, build_0]
+    needs: [build_0]
     name: trigger readthedocs
     runs-on: ubuntu-latest
     defaults:
