@@ -65,7 +65,7 @@ jobs:
         export WRADLIB_DATA=`realpath $WRADLIB_DATA`
         pytest -n auto --verbose --durations=15 --pyargs notebooks
     - name: Commit files
-      if: github.event_name == 'push'
+      if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
       run: |
         git config --global user.email "wradlib-docs@wradlib.org"
         git config --global user.name "wradlib-docs-bot"
@@ -73,7 +73,7 @@ jobs:
         git add --all .
         git commit -m "Rendering at commit $GITHUB_SHA"
     - name: Push changes
-      if: github.event_name == 'push'
+      if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
       run: |
         if [ $WRADLIB_TAG == 'undefined' ]; then
             BRANCH=devel
@@ -203,7 +203,7 @@ jobs:
         pytest -n auto --verbose --doctest-modules --durations=15 --cov-report xml:coverage.xml --cov=wradlib --pyargs notebooks
 
   trigger_rtd:
-    if: github.event_name == 'push' || github.event_name == 'release'
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     needs: [build_0]
     name: trigger readthedocs
     runs-on: ubuntu-latest
