@@ -1,0 +1,219 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  build_0:
+    name: wradlib notebooks - linux
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+    env:
+      WRADLIB_DATA: ./wradlib-data
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9"]
+    steps:
+    - name: Cancel Previous Runs
+      uses: styfle/cancel-workflow-action@0.6.0
+      with:
+        access_token: ${{ github.token }}
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: install micromamba
+      run: |
+        wget -qO- https://micromamba.snakepit.net/api/micromamba/linux-64/latest | tar -xvj bin/micromamba --strip-components=1
+        mv "$HOME/.bashrc" .bashrcBAK
+        touch "$HOME/.bashrc"
+        ./micromamba shell init -s bash -p ~/micromamba
+        cat "$HOME/.bashrc" >> "$HOME/.bash_profile"
+        mv .bashrcBAK "$HOME/.bashrc"
+    - name: Install deps
+      run: |
+        micromamba create -y -n wradlib-tests python=${{ matrix.python-version }} -f ci/requirements/notebooks.txt --channel conda-forge
+        echo "set -eo pipefail" >> "$HOME/.bash_profile"
+        echo "micromamba activate wradlib-tests" >> "$HOME/.bash_profile"
+    - name: Install wradlib
+      run: |
+        git clone https://github.com/wradlib/wradlib.git
+        cd wradlib
+        echo "WRADLIB_TAG=`git name-rev --name-only --tags HEAD`" >> $GITHUB_ENV
+        python setup.py sdist
+        python -m pip install . --no-deps
+    - name: Clone wradlib-data
+      run: |
+        git clone https://github.com/wradlib/wradlib-data.git
+    - name: Version Info
+      run: |
+        micromamba list
+        python -c "import wradlib; print(wradlib.version.full_version)"
+        python -c "import wradlib; print(wradlib.show_versions())"
+    - name: Render with pytest
+      env:
+        WRADLIB_EARTHDATA_USER: ${{ secrets.WRADLIB_EARTHDATA_USER }}
+        WRADLIB_EARTHDATA_PASS: ${{ secrets.WRADLIB_EARTHDATA_PASS }}
+      run: |
+        export WRADLIB_DATA=`realpath $WRADLIB_DATA`
+        pytest -n auto --verbose --durations=15 --pyargs notebooks
+    - name: Commit files
+      if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+      run: |
+        git config --global user.email "wradlib-docs@wradlib.org"
+        git config --global user.name "wradlib-docs-bot"
+        git checkout --orphan render
+        git add --all .
+        git commit -m "Rendering at commit $GITHUB_SHA"
+    - name: Push changes
+      if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+      run: |
+        if [ $WRADLIB_TAG == 'undefined' ]; then
+            BRANCH=devel
+        else
+            BRANCH=$WRADLIB_TAG
+        fi
+        git push https://${{ secrets.GITHUB_TOKEN }}@github.com/wradlib/wradlib-notebooks.git render:$BRANCH -fq
+
+  build_1:
+    name: wradlib notebooks - macosx
+    runs-on: macos-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+    env:
+      WRADLIB_DATA: ./wradlib-data
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9"]
+    steps:
+    - name: Cancel Previous Runs
+      uses: styfle/cancel-workflow-action@0.6.0
+      with:
+        access_token: ${{ github.token }}
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: install micromamba
+      run: |
+        curl -Ls https://micromamba.snakepit.net/api/micromamba/osx-64/latest | tar -xvj bin/micromamba
+        mv bin/micromamba .
+        mv "$HOME/.bashrc" .bashrcBAK
+        touch "$HOME/.bashrc"
+        ./micromamba shell init -s bash -p ~/micromamba
+        cat "$HOME/.bashrc" >> "$HOME/.bash_profile"
+        mv .bashrcBAK "$HOME/.bashrc"
+    - name: Install deps
+      run: |
+        micromamba create -y -n wradlib-tests python=${{ matrix.python-version }} -f ci/requirements/notebooks.txt --channel conda-forge
+        echo "set -eo pipefail" >> "$HOME/.bash_profile"
+        echo "micromamba activate wradlib-tests" >> "$HOME/.bash_profile"
+    - name: Install wradlib
+      run: |
+        git clone https://github.com/wradlib/wradlib.git
+        cd wradlib
+        echo "WRADLIB_TAG=`git name-rev --name-only --tags HEAD`" >> $GITHUB_ENV
+        python setup.py sdist
+        python -m pip install . --no-deps
+    - name: Clone wradlib-data
+      run: |
+        git clone https://github.com/wradlib/wradlib-data.git
+    - name: Version Info
+      run: |
+        micromamba list
+        python -c "import wradlib; print(wradlib.version.full_version)"
+        python -c "import wradlib; print(wradlib.show_versions())"
+    - name: Render with pytest
+      env:
+        WRADLIB_EARTHDATA_USER: ${{ secrets.WRADLIB_EARTHDATA_USER }}
+        WRADLIB_EARTHDATA_PASS: ${{ secrets.WRADLIB_EARTHDATA_PASS }}
+      run: |
+        export WRADLIB_DATA=`python -c "import os, sys; print(os.path.realpath(sys.argv[1]))" $WRADLIB_DATA`
+        pytest -n auto --verbose --doctest-modules --durations=15 --cov-report xml:coverage.xml --cov=wradlib --pyargs notebooks
+
+  build_2:
+    name: wradlib notebooks - windows
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+    env:
+      WRADLIB_DATA: ./wradlib-data
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9"]
+    steps:
+    - name: Cancel Previous Runs
+      uses: styfle/cancel-workflow-action@0.6.0
+      with:
+        access_token: ${{ github.token }}
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: install micromamba
+      run: |
+        Invoke-Webrequest -URI https://micromamba.snakepit.net/api/micromamba/win-64/latest -OutFile micromamba.tar.bz2
+        C:\PROGRA~1\7-Zip\7z.exe x micromamba.tar.bz2 -aoa
+        C:\PROGRA~1\7-Zip\7z.exe x micromamba.tar -ttar -aoa -r Library\bin\micromamba.exe
+        MOVE -Force Library\bin\micromamba.exe micromamba.exe
+        .\micromamba.exe shell init -s powershell -p $HOME/micromamba
+      shell: powershell
+    - name: Install deps
+      run: |
+        $Env:MAMBA_ROOT_PREFIX=(Join-Path -Path $HOME -ChildPath micromamba)
+        $Env:MAMBA_EXE=(Join-Path -Path (Get-Location) -ChildPath micromamba.exe)
+        .\micromamba.exe create -y -n wradlib-tests python=${{ matrix.python-version }} -f ci/requirements/notebooks.txt --channel conda-forge
+      shell: powershell
+    - name: Install wradlib
+      run: |
+        eval "$(./micromamba shell hook -s bash)"
+        git clone https://github.com/wradlib/wradlib.git
+        cd wradlib
+        echo "WRADLIB_TAG=`git name-rev --name-only --tags HEAD`" >> $GITHUB_ENV
+        micromamba activate wradlib-tests
+        python setup.py sdist
+        python -m pip install . --no-deps
+    - name: Clone wradlib-data
+      run: |
+        git clone https://github.com/wradlib/wradlib-data.git
+    - name: Version Info
+      run: |
+        eval "$(./micromamba shell hook -s bash)"
+        micromamba activate wradlib-tests
+        micromamba list
+        python -c "import wradlib; print(wradlib.version.full_version)"
+        python -c "import wradlib; print(wradlib.show_versions())"
+    - name: Test with pytest
+      env:
+        WRADLIB_EARTHDATA_USER: ${{ secrets.WRADLIB_EARTHDATA_USER }}
+        WRADLIB_EARTHDATA_PASS: ${{ secrets.WRADLIB_EARTHDATA_PASS }}
+      run: |
+        eval "$(./micromamba shell hook -s bash)"
+        micromamba activate wradlib-tests
+        export WRADLIB_DATA=`python -c "import os, sys; print(os.path.realpath(sys.argv[1]))" $WRADLIB_DATA`
+        pytest -n auto --verbose --doctest-modules --durations=15 --cov-report xml:coverage.xml --cov=wradlib --pyargs notebooks
+
+  trigger_rtd:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    needs: [build_0]
+    name: trigger readthedocs
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+    env:
+      RTD_TOKEN: ${{ secrets.RTD_TOKEN }}
+      RTD_URL: ${{ secrets.RTD_URL }}
+    steps:
+    - name: trigger readthedocs
+      run: |
+        curl -X POST -d "token=$RTD_TOKEN" "$RTD_URL"
