@@ -1,5 +1,6 @@
 bottleneck
 cartopy
+cartopy_offlinedata
 codecov
 coverage
 dask
