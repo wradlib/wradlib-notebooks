@@ -6,6 +6,7 @@ coverage
 dask
 deprecation
 gdal
+geopandas
 h5py
 h5netcdf
 nbconvert
@@ -21,6 +22,7 @@ pytest
 pytest-cov
 pytest-sugar
 pytest-xdist
+rioxarray
 requests
 scipy
 semver
