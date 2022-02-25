@@ -24,7 +24,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9"]
+        python-version: ["3.10"]
     steps:
     - name: Cancel Previous Runs
       uses: styfle/cancel-workflow-action@0.6.0
@@ -33,20 +33,13 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - name: install micromamba
-      run: |
-        echo ${micromamba_version}
-        wget -qO- https://micromamba.snakepit.net/api/micromamba/linux-64/${micromamba_version} | tar -xvj bin/micromamba --strip-components=1
-        mv "$HOME/.bashrc" .bashrcBAK
-        touch "$HOME/.bashrc"
-        ./micromamba shell init -s bash -p ~/micromamba
-        cat "$HOME/.bashrc" >> "$HOME/.bash_profile"
-        mv .bashrcBAK "$HOME/.bashrc"
-    - name: Install deps
-      run: |
-        micromamba create -y -n wradlib-tests python=${{ matrix.python-version }} -f ci/requirements/notebooks.txt --channel conda-forge
-        echo "set -eo pipefail" >> "$HOME/.bash_profile"
-        echo "micromamba activate wradlib-tests" >> "$HOME/.bash_profile"
+    - name: Install micromamba environment
+      uses: mamba-org/provision-with-micromamba@main
+      with:
+        environment-name: wradlib-notebooks
+        environment-file: ci/requirements/notebooks.yml
+        extra-specs: |
+          python=${{ matrix.python-version }}
     - name: Install wradlib
       run: |
         git clone https://github.com/wradlib/wradlib.git
@@ -59,7 +52,6 @@ jobs:
         git clone https://github.com/wradlib/wradlib-data.git
     - name: Version Info
       run: |
-        micromamba list
         python -c "import wradlib; print(wradlib.version.full_version)"
         python -c "import wradlib; print(wradlib.show_versions())"
     - name: Render with pytest
@@ -98,7 +90,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9"]
+        python-version: ["3.10"]
     steps:
     - name: Cancel Previous Runs
       uses: styfle/cancel-workflow-action@0.6.0
@@ -107,21 +99,13 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - name: install micromamba
-      run: |
-        echo ${micromamba_version}
-        curl -Ls https://micromamba.snakepit.net/api/micromamba/osx-64/${micromamba_version} | tar -xvj bin/micromamba
-        mv bin/micromamba .
-        mv "$HOME/.bashrc" .bashrcBAK
-        touch "$HOME/.bashrc"
-        ./micromamba shell init -s bash -p ~/micromamba
-        cat "$HOME/.bashrc" >> "$HOME/.bash_profile"
-        mv .bashrcBAK "$HOME/.bashrc"
-    - name: Install deps
-      run: |
-        micromamba create -y -n wradlib-tests python=${{ matrix.python-version }} -f ci/requirements/notebooks.txt --channel conda-forge
-        echo "set -eo pipefail" >> "$HOME/.bash_profile"
-        echo "micromamba activate wradlib-tests" >> "$HOME/.bash_profile"
+    - name: Install micromamba environment
+      uses: mamba-org/provision-with-micromamba@main
+      with:
+        environment-name: wradlib-notebooks
+        environment-file: ci/requirements/notebooks.yml
+        extra-specs: |
+          python=${{ matrix.python-version }}
     - name: Install wradlib
       run: |
         git clone https://github.com/wradlib/wradlib.git
@@ -134,7 +118,6 @@ jobs:
         git clone https://github.com/wradlib/wradlib-data.git
     - name: Version Info
       run: |
-        micromamba list
         python -c "import wradlib; print(wradlib.version.full_version)"
         python -c "import wradlib; print(wradlib.show_versions())"
     - name: Render with pytest
@@ -150,13 +133,13 @@ jobs:
     runs-on: windows-latest
     defaults:
       run:
-        shell: bash
+        shell: bash -l {0}
     env:
       WRADLIB_DATA: ./wradlib-data
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9"]
+        python-version: ["3.10"]
     steps:
     - name: Cancel Previous Runs
       uses: styfle/cancel-workflow-action@0.6.0
@@ -165,28 +148,17 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - name: install micromamba
-      run: |
-        $Env:micromamba_version
-        Invoke-Webrequest -URI https://micromamba.snakepit.net/api/micromamba/win-64/$Env:micromamba_version -OutFile micromamba.tar.bz2
-        C:\PROGRA~1\7-Zip\7z.exe x micromamba.tar.bz2 -aoa
-        C:\PROGRA~1\7-Zip\7z.exe x micromamba.tar -ttar -aoa -r Library\bin\micromamba.exe
-        MOVE -Force Library\bin\micromamba.exe micromamba.exe
-        .\micromamba.exe shell init -s powershell -p $HOME/micromamba
-      shell: powershell
-    - name: Install deps
-      run: |
-        $Env:MAMBA_ROOT_PREFIX=(Join-Path -Path $HOME -ChildPath micromamba)
-        $Env:MAMBA_EXE=(Join-Path -Path (Get-Location) -ChildPath micromamba.exe)
-        .\micromamba.exe create -y -n wradlib-tests python=${{ matrix.python-version }} -f ci/requirements/notebooks.txt --channel conda-forge
-      shell: powershell
+    - name: Install micromamba environment
+      uses: mamba-org/provision-with-micromamba@main
+      with:
+        environment-name: wradlib-notebooks
+        environment-file: ci/requirements/notebooks.yml
+        extra-specs: |
+          python=${{ matrix.python-version }}
     - name: Install wradlib
       run: |
-        eval "$(./micromamba shell hook -s bash)"
         git clone https://github.com/wradlib/wradlib.git
         cd wradlib
-        echo "WRADLIB_TAG=`git name-rev --name-only --tags HEAD`" >> $GITHUB_ENV
-        micromamba activate wradlib-tests
         python setup.py sdist
         python -m pip install . --no-deps
     - name: Clone wradlib-data
@@ -194,9 +166,6 @@ jobs:
         git clone https://github.com/wradlib/wradlib-data.git
     - name: Version Info
       run: |
-        eval "$(./micromamba shell hook -s bash)"
-        micromamba activate wradlib-tests
-        micromamba list
         python -c "import wradlib; print(wradlib.version.full_version)"
         python -c "import wradlib; print(wradlib.show_versions())"
     - name: Test with pytest
@@ -204,8 +173,6 @@ jobs:
         WRADLIB_EARTHDATA_USER: ${{ secrets.WRADLIB_EARTHDATA_USER }}
         WRADLIB_EARTHDATA_PASS: ${{ secrets.WRADLIB_EARTHDATA_PASS }}
       run: |
-        eval "$(./micromamba shell hook -s bash)"
-        micromamba activate wradlib-tests
         export WRADLIB_DATA=`python -c "import os, sys; print(os.path.realpath(sys.argv[1]))" $WRADLIB_DATA`
         pytest -n auto --verbose --doctest-modules --durations=15 --cov-report xml:coverage.xml --cov=wradlib --pyargs notebooks
 
