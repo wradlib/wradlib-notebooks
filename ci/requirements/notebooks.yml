@@ -19,6 +19,7 @@ dependencies:
   - notebook
   - numpy
   - matplotlib-base
+  - packaging
   - pint
   - pint-xarray
   - pip

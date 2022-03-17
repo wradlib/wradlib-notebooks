@@ -2,15 +2,14 @@
 # Copyright (c) 2019-2020, wradlib developers.
 # Distributed under the MIT License. See LICENSE.txt for more info.
 
-import io
 import os
 import sys
-from distutils.version import LooseVersion
 
 import nbformat
 import pytest
 from nbconvert.preprocessors import ExecutePreprocessor
 from nbconvert.preprocessors.execute import CellExecutionError
+from packaging.version import Version
 
 
 def pytest_collect_file(parent, path):
@@ -19,8 +18,7 @@ def pytest_collect_file(parent, path):
 
 
 class NotebookFile(pytest.File):
-
-    if LooseVersion(pytest.__version__) < "5.4.0":
+    if Version(pytest.__version__) < Version("5.4.0"):
 
         @classmethod
         def from_parent(cls, parent, fspath):
@@ -39,7 +37,7 @@ class NotebookItem(pytest.Item):
     def __init__(self, name, parent):
         super(NotebookItem, self).__init__(name, parent)
 
-    if LooseVersion(pytest.__version__) < "5.4.0":
+    if Version(pytest.__version__) < Version("5.4.0"):
 
         @classmethod
         def from_parent(cls, parent, name):
@@ -49,8 +47,13 @@ class NotebookItem(pytest.Item):
         cur_dir = os.path.dirname(self.fspath)
 
         # See https://bugs.python.org/issue37373
-        if sys.version_info[0] == 3 and sys.version_info[1] >= 8 and sys.platform.startswith('win'):
+        if (
+            sys.version_info[0] == 3
+            and sys.version_info[1] >= 8
+            and sys.platform.startswith("win")
+        ):
             import asyncio
+
             asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
         with self.fspath.open() as f:
@@ -60,7 +63,7 @@ class NotebookItem(pytest.Item):
             except CellExecutionError as e:
                 raise NotebookException(e)
 
-        with open(self.fspath, "wt", encoding='utf-8') as f:
+        with open(self.fspath, "wt", encoding="utf-8") as f:
             nbformat.write(nb, f)
 
     def repr_failure(self, excinfo):
