@@ -1,0 +1,39 @@
+name: wradlib-notebooks
+channels:
+  - conda-forge
+dependencies:
+  - python>=3.7
+  - bottleneck
+  - cartopy
+  - cartopy_offlinedata
+  - codecov
+  - coverage
+  - dask
+  - deprecation
+  - gdal
+  - geopandas
+  - h5py
+  - h5netcdf
+  - nbconvert
+  - netCDF4
+  - notebook
+  - numpy
+  - matplotlib-base
+  - packaging
+  - pint
+  - pint-xarray
+  - pip
+  - psutil
+  - pytest
+  - pytest-cov
+  - pytest-sugar
+  - pytest-xdist
+  - rioxarray
+  - requests
+  - scipy
+  - semver
+  - setuptools
+  - tqdm
+  - wetterdienst
+  - xarray
+  - xmltodict
