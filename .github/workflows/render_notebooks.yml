@@ -44,7 +44,7 @@ jobs:
         git clone https://github.com/wradlib/wradlib-data.git
     - name: Version Info
       run: |
-        python -c "import wradlib; print(wradlib.version.full_version)"
+        python -c "import wradlib; print(wradlib.version.version)"
         python -c "import wradlib; print(wradlib.show_versions())"
     - name: Render with pytest
       env:
