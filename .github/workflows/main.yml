@@ -1,6 +1,6 @@
 name: CI
 env:
-  micromamba_version: 0.17.0
+  micromamba_version: 0.22.0
 
 
 on:
@@ -52,7 +52,7 @@ jobs:
         git clone https://github.com/wradlib/wradlib-data.git
     - name: Version Info
       run: |
-        python -c "import wradlib; print(wradlib.version.full_version)"
+        python -c "import wradlib; print(wradlib.version.version)"
         python -c "import wradlib; print(wradlib.show_versions())"
     - name: Render with pytest
       env:
@@ -118,7 +118,7 @@ jobs:
         git clone https://github.com/wradlib/wradlib-data.git
     - name: Version Info
       run: |
-        python -c "import wradlib; print(wradlib.version.full_version)"
+        python -c "import wradlib; print(wradlib.version.version)"
         python -c "import wradlib; print(wradlib.show_versions())"
     - name: Render with pytest
       env:
@@ -166,7 +166,7 @@ jobs:
         git clone https://github.com/wradlib/wradlib-data.git
     - name: Version Info
       run: |
-        python -c "import wradlib; print(wradlib.version.full_version)"
+        python -c "import wradlib; print(wradlib.version.version)"
         python -c "import wradlib; print(wradlib.show_versions())"
     - name: Test with pytest
       env:
