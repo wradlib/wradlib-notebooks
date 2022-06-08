@@ -39,6 +39,6 @@ dependencies:
   - wetterdienst
   - xarray
   - xmltodict
-  
+
   # fix blosc/gdal error on macosx
   - blosc==1.21.0
