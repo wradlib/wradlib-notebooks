@@ -7,7 +7,7 @@ This is a live session from which you can run scalable notebooks on the cloud.
 
 A file browser listing example notebooks is available to the left.
 
-Dask dashboard plots are available to the right.  
+Dask dashboard plots are available to the right.
 These will activate when you launch a Dask cluster and start doing work.
 (these cells are already written for you).
 
