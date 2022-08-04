@@ -12,20 +12,20 @@ from nbconvert.preprocessors.execute import CellExecutionError
 from packaging.version import Version
 
 
-def pytest_collect_file(parent, path):
-    if path.ext == ".ipynb":
-        return NotebookFile.from_parent(parent, fspath=path)
+def pytest_collect_file(parent, file_path):
+    if file_path.suffix == ".ipynb":
+        return NotebookFile.from_parent(parent, path=file_path)
 
 
 class NotebookFile(pytest.File):
     if Version(pytest.__version__) < Version("5.4.0"):
 
         @classmethod
-        def from_parent(cls, parent, fspath):
-            return cls(parent=parent, fspath=fspath)
+        def from_parent(cls, parent, path):
+            return cls(parent=parent, path=path)
 
     def collect(self):
-        for f in [self.fspath]:
+        for f in [self.path]:
             yield NotebookItem.from_parent(self, name=os.path.basename(f))
 
     def setup(self):
@@ -44,7 +44,7 @@ class NotebookItem(pytest.Item):
             return cls(parent=parent, name=name)
 
     def runtest(self):
-        cur_dir = os.path.dirname(self.fspath)
+        cur_dir = os.path.dirname(self.path)
 
         # See https://bugs.python.org/issue37373
         if (
@@ -56,14 +56,14 @@ class NotebookItem(pytest.Item):
 
             asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
-        with self.fspath.open() as f:
+        with self.path.open() as f:
             nb = nbformat.read(f, as_version=4)
             try:
                 self.parent.exproc.preprocess(nb, {"metadata": {"path": cur_dir}})
             except CellExecutionError as e:
                 raise NotebookException(e)
 
-        with open(self.fspath, "wt", encoding="utf-8") as f:
+        with open(self.path, "wt", encoding="utf-8") as f:
             nbformat.write(nb, f)
 
     def repr_failure(self, excinfo):
@@ -73,7 +73,7 @@ class NotebookItem(pytest.Item):
         return super(NotebookItem, self).repr_failure((excinfo))
 
     def reportinfo(self):
-        return self.fspath, 0, "TestCase: %s" % self.name
+        return self.path, 0, "TestCase: %s" % self.name
 
 
 class NotebookException(Exception):
