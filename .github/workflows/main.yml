@@ -56,8 +56,7 @@ jobs:
         python -c "import wradlib; print(wradlib.show_versions())"
     - name: Render with pytest
       env:
-        WRADLIB_EARTHDATA_USER: ${{ secrets.WRADLIB_EARTHDATA_USER }}
-        WRADLIB_EARTHDATA_PASS: ${{ secrets.WRADLIB_EARTHDATA_PASS }}
+        WRADLIB_EARTHDATA_BEARER_TOKEN: ${{ secrets.WRADLIB_EARTHDATA_BEARER_TOKEN }}
       run: |
         export WRADLIB_DATA=`realpath $WRADLIB_DATA`
         pytest -n auto --verbose --durations=15 --pyargs notebooks
@@ -122,8 +121,7 @@ jobs:
         python -c "import wradlib; print(wradlib.show_versions())"
     - name: Render with pytest
       env:
-        WRADLIB_EARTHDATA_USER: ${{ secrets.WRADLIB_EARTHDATA_USER }}
-        WRADLIB_EARTHDATA_PASS: ${{ secrets.WRADLIB_EARTHDATA_PASS }}
+        WRADLIB_EARTHDATA_BEARER_TOKEN: ${{ secrets.WRADLIB_EARTHDATA_BEARER_TOKEN }}
       run: |
         export WRADLIB_DATA=`python -c "import os, sys; print(os.path.realpath(sys.argv[1]))" $WRADLIB_DATA`
         pytest -n auto --verbose --doctest-modules --durations=15 --cov-report xml:coverage.xml --cov=wradlib --pyargs notebooks
@@ -170,8 +168,7 @@ jobs:
         python -c "import wradlib; print(wradlib.show_versions())"
     - name: Test with pytest
       env:
-        WRADLIB_EARTHDATA_USER: ${{ secrets.WRADLIB_EARTHDATA_USER }}
-        WRADLIB_EARTHDATA_PASS: ${{ secrets.WRADLIB_EARTHDATA_PASS }}
+        WRADLIB_EARTHDATA_BEARER_TOKEN: ${{ secrets.WRADLIB_EARTHDATA_BEARER_TOKEN }}
       run: |
         export WRADLIB_DATA=`python -c "import os, sys; print(os.path.realpath(sys.argv[1]))" $WRADLIB_DATA`
         pytest -n auto --verbose --doctest-modules --durations=15 --cov-report xml:coverage.xml --cov=wradlib --pyargs notebooks
