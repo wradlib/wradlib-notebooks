@@ -8,5 +8,5 @@ echo $notebooks
 
 # convert notebooks to python scripts
 for nb in $notebooks; do
-    nbstripout --extra-keys "metadata.kernelspec cell.metadata.pycharm" $nb
+    nbstripout --extra-keys "metadata.kernelspec cell.metadata.pycharm cell.metadata.tags" $nb
 done

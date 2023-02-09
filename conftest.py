@@ -13,7 +13,7 @@ from packaging.version import Version
 
 
 def pytest_collect_file(parent, file_path):
-    if file_path.suffix == ".ipynb":
+    if file_path.suffix == ".ipynb" and "-Copy" not in file_path.name:
         return NotebookFile.from_parent(parent, path=file_path)
 
 
@@ -35,7 +35,7 @@ class NotebookFile(pytest.File):
 
 class NotebookItem(pytest.Item):
     def __init__(self, name, parent):
-        super(NotebookItem, self).__init__(name, parent)
+        super().__init__(name, parent)
 
     if Version(pytest.__version__) < Version("5.4.0"):
 
@@ -63,14 +63,14 @@ class NotebookItem(pytest.Item):
             except CellExecutionError as e:
                 raise NotebookException(e)
 
-        with open(self.path, "wt", encoding="utf-8") as f:
+        with open(self.path, "w", encoding="utf-8") as f:
             nbformat.write(nb, f)
 
     def repr_failure(self, excinfo):
         if isinstance(excinfo.value, NotebookException):
             return excinfo.exconly()
 
-        return super(NotebookItem, self).repr_failure((excinfo))
+        return super().repr_failure(excinfo)
 
     def reportinfo(self):
         return self.path, 0, "TestCase: %s" % self.name
