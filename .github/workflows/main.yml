@@ -156,9 +156,10 @@ jobs:
         git clone https://github.com/wradlib/wradlib.git
         cd wradlib
         python -m pip install . --no-deps
-    - name: Clone wradlib-data
+    - name: Install wradlib-data
       run: |
-        git clone https://github.com/wradlib/wradlib-data.git
+        python -m pip install git+https://github.com/wradlib/wradlib-data@pooch
+        mkdir ./wradlib-data
     - name: Version Info
       run: |
         python -c "import wradlib; print(wradlib.version.version)"
