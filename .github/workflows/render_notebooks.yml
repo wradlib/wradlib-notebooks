@@ -37,7 +37,6 @@ jobs:
         git clone https://github.com/wradlib/wradlib.git
         cd wradlib
         echo "WRADLIB_TAG=`git name-rev --name-only --tags HEAD`" >> $GITHUB_ENV
-        python setup.py sdist
         python -m pip install . --no-deps
     - name: Clone wradlib-data
       run: |
