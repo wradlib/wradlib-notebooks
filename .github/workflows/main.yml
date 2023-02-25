@@ -187,4 +187,5 @@ jobs:
     steps:
     - name: trigger readthedocs
       run: |
-        curl -X POST -d "token=$RTD_TOKEN" "$RTD_URL"
+        echo "not triggering"
+        # curl -X POST -d "token=$RTD_TOKEN" "$RTD_URL"
