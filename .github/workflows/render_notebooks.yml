@@ -1,4 +1,6 @@
 name: Render
+env:
+  micromamba_version: 1.5
 
 on:
   workflow_dispatch:
@@ -16,6 +18,7 @@ jobs:
         shell: bash -l {0}
     env:
       WRADLIB_DATA: ./wradlib-data
+      CONDA_ENV_FILE: ci/requirements/notebooks.yml
     strategy:
       fail-fast: false
       matrix:
@@ -25,12 +28,14 @@ jobs:
       with:
         fetch-depth: 0
     - name: Install micromamba environment
-      uses: mamba-org/provision-with-micromamba@main
+      uses: mamba-org/setup-micromamba@v1
       with:
         environment-name: wradlib-notebooks
-        environment-file: ci/requirements/notebooks.yml
-        extra-specs: |
-          python=${{ matrix.python-version }}
+        environment-file: ${{env.CONDA_ENV_FILE}}
+        cache-environment: true
+        cache-environment-key: "${{runner.os}}-${{runner.arch}}-py${{env.PYTHON_VERSION}}-${{env.TODAY}}-${{hashFiles(env.CONDA_ENV_FILE)}}"
+        create-args: >-
+          python=${{matrix.python-version}}
     - name: Install wradlib
       run: |
         git clone https://github.com/wradlib/wradlib.git
