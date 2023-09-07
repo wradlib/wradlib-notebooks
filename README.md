@@ -4,8 +4,10 @@
 
 This repository consists of jupyter notebooks to give examples of wradlib usage and help users via tutorials.
 
-- [An incomplete introduction to python](notebooks/learnpython.ipynb)
-- [Getting started with wradlib](notebooks/basics.ipynb)
+Rendered versions are available in the tagged branches. In [devel-branch](https://github.com/wradlib/wradlib-notebooks/tree/devel) the most recent rendered snapshot comprising the latest changes in this repo as well as  [wradlib](https://github.com/wradlib/wradlib) can be found. The notebooks are also rendered in the [wradlib documentation](https://docs.wradlib.org/en/latest/).
+
+- [An incomplete introduction to python](notebooks/python/learnpython.ipynb)
+- [Getting started with wradlib](notebooks/basics/basics.ipynb)
 - [Data Input - Data Output](notebooks/fileio.ipynb)
 - [Attenuation correction](notebooks/attenuation/wradlib_attenuation.ipynb)
 - [Beam Blockage Calculation using DEM](notebooks/beamblockage/wradlib_beamblock.ipynb)
@@ -16,5 +18,5 @@ This repository consists of jupyter notebooks to give examples of wradlib usage 
 - [Adjusting rainfall estimates by rain gauges](notebooks/multisensor/wradlib_adjust_example.ipynb)
 - [Verification for precipitation estimates](notebooks/verification/wradlib_verify_example.ipynb)
 - [Recipes](notebooks/recipes.ipynb)
-- [RADOLAN Composite](notebooks/radolan.ipynb)
+- [RADOLAN Composite](notebooks/fileio/radolan.ipynb)
 - [Zonal Statistics](notebooks/zonalstats/wradlib_zonalstats_classes.ipynb)

@@ -1,4 +1,6 @@
 name: Render
+env:
+  micromamba_version: 1.5
 
 on:
   workflow_dispatch:
@@ -25,12 +27,14 @@ jobs:
       with:
         fetch-depth: 0
     - name: Install micromamba environment
-      uses: mamba-org/provision-with-micromamba@main
+      uses: mamba-org/setup-micromamba@v1
       with:
         environment-name: wradlib-notebooks
-        environment-file: ci/requirements/notebooks.yml
-        extra-specs: |
-          python=${{ matrix.python-version }}
+        environment-file: ${{env.CONDA_ENV_FILE}}
+        cache-environment: true
+        cache-environment-key: "${{runner.os}}-${{runner.arch}}-py${{env.PYTHON_VERSION}}-${{env.TODAY}}-${{hashFiles(env.CONDA_ENV_FILE)}}"
+        create-args: >-
+          python=${{matrix.python-version}}
     - name: Install wradlib
       run: |
         git clone https://github.com/wradlib/wradlib.git
@@ -46,8 +50,6 @@ jobs:
         python -c "import wradlib; print(wradlib.version.version)"
         python -c "import wradlib; print(wradlib.show_versions())"
     - name: Render with pytest
-      env:
-        WRADLIB_EARTHDATA_BEARER_TOKEN: ${{ secrets.WRADLIB_EARTHDATA_BEARER_TOKEN }}
       run: |
         export WRADLIB_DATA=`realpath $WRADLIB_DATA`
         pytest -n auto --verbose --durations=15 --pyargs notebooks
@@ -83,4 +85,5 @@ jobs:
     steps:
     - name: trigger readthedocs
       run: |
+        echo "triggering"
         curl -X POST -d "token=$RTD_TOKEN" "$RTD_URL"

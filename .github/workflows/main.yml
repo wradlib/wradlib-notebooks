@@ -119,12 +119,9 @@ jobs:
         python -c "import wradlib; print(wradlib.version.version)"
         python -c "import wradlib; print(wradlib.show_versions())"
     - name: Render with pytest
-      env:
-        WRADLIB_EARTHDATA_BEARER_TOKEN: ${{ secrets.WRADLIB_EARTHDATA_BEARER_TOKEN }}
       run: |
         export WRADLIB_DATA=`python -c "import os, sys; print(os.path.realpath(sys.argv[1]))" $WRADLIB_DATA`
-        pytest -n auto --verbose --doctest-modules --durations=15 --cov-report xml:coverage.xml --cov=wradlib --pyargs notebooks
-
+        pytest -n auto --verbose --durations=15 --pyargs notebooks
   build_2:
     name: wradlib notebooks - windows
     runs-on: windows-latest
@@ -165,11 +162,9 @@ jobs:
         python -c "import wradlib; print(wradlib.version.version)"
         python -c "import wradlib; print(wradlib.show_versions())"
     - name: Test with pytest
-      env:
-        WRADLIB_EARTHDATA_BEARER_TOKEN: ${{ secrets.WRADLIB_EARTHDATA_BEARER_TOKEN }}
       run: |
         export WRADLIB_DATA=`python -c "import os, sys; print(os.path.realpath(sys.argv[1]))" $WRADLIB_DATA`
-        pytest -n auto --verbose --doctest-modules --durations=15 --cov-report xml:coverage.xml --cov=wradlib --pyargs notebooks
+        pytest -n auto --verbose --durations=15 --pyargs notebooks
 
   trigger_rtd:
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
@@ -185,5 +180,5 @@ jobs:
     steps:
     - name: trigger readthedocs
       run: |
-        echo "not triggering"
-        # curl -X POST -d "token=$RTD_TOKEN" "$RTD_URL"
+        echo "triggering"
+        curl -X POST -d "token=$RTD_TOKEN" "$RTD_URL"
