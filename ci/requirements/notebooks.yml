@@ -38,6 +38,6 @@ dependencies:
   - setuptools
   - tqdm
   - wetterdienst
-  - xarray>=2023.2.0
+  - xarray
   - xmltodict
-  - xradar>=0.0.13
+  - xradar
