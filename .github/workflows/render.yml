@@ -18,6 +18,7 @@ jobs:
         shell: bash -l {0}
     env:
       WRADLIB_DATA: ./wradlib-data
+      CONDA_ENV_FILE: ci/requirements/notebooks.yml
     strategy:
       fail-fast: false
       matrix:
