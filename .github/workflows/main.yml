@@ -181,4 +181,4 @@ jobs:
     - name: trigger readthedocs
       run: |
         echo "triggering"
-        curl -X POST -d "token=$RTD_TOKEN" "$RTD_URL"
+        curl -X POST -H "Authorization: Token $RTD_TOKEN" "$RTD_URL"
