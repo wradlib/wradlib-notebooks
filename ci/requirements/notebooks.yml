@@ -37,7 +37,6 @@ dependencies:
   - semver
   - setuptools
   - tqdm
-  - wetterdienst
   - xarray
   - xmltodict
   - xradar
