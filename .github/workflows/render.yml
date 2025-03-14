@@ -44,7 +44,7 @@ jobs:
         python -m pip install . --no-deps
     - name: Install wradlib-data
       run: |
-        python -m pip install git+https://github.com/wradlib/wradlib-data@pooch
+        python -m pip install wradlib-data
         mkdir ./wradlib-data
     - name: Version Info
       run: |
