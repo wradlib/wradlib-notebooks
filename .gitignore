@@ -1,0 +1,39 @@
+# Ignore everything
+*
+
+# whitelist notebooks, png and shell
+!*.ipynb
+!*.png
+!*.sh
+
+# whitelist scripts
+!scripts/
+!/scripts/*
+
+# whitelist notebooks
+!notebooks/
+#!/notebooks/**
+
+# whitelist .dask
+!.dask/
+!/.dask/*
+
+# whitelist ci
+!ci/
+
+# whitelist binder
+!binder/
+!/binder/*
+
+# Whitelist root files
+!.gitignore
+!conftest.py
+!README.md
+!LICENSE.txt
+!Welcome_Pangeo.md
+
+# blacklist standard notebook copies
+*-Copy*.ipynb
+
+# blacklist checkpoints
+*checkpoint*
