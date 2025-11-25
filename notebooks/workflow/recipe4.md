@@ -26,11 +26,20 @@ The following code is based on [xarray](https://docs.xarray.dev) and [xradar](ht
 ```
 
 ```{code-cell} python
+import glob
+import io
+import os
+import shutil
 import warnings
+from html.parser import HTMLParser
 
+import cartopy
+import cartopy.crs as ccrs
+import cartopy.feature as cfeature
+import certifi
 import matplotlib.pyplot as plt
 import numpy as np
-import wradlib as wrl
+import urllib3
 import xarray as xr
 import xradar as xd
 
@@ -38,19 +47,6 @@ warnings.filterwarnings("ignore")
 ```
 
 ```{code-cell} python
-import datetime
-import glob
-import io
-import os
-import shutil
-
-import urllib3
-```
-
-```{code-cell} python
-from html.parser import HTMLParser
-
-
 class DWDHTMLParser(HTMLParser):
     def handle_starttag(self, tag, attrs):
         if tag != "a":
@@ -67,8 +63,6 @@ parser = DWDHTMLParser()
 radar = "ESS"
 DBZH = "sweep_vol_z"
 VRADH = "sweep_vol_v"
-
-import certifi
 
 opendata_url1 = f"https://opendata.dwd.de/weather/radar/sites/{DBZH}/{radar.lower()}/hdf5/filter_polarimetric/"
 
@@ -271,10 +265,6 @@ swp = vol0["sweep_9"].ds
 ```
 
 ```{code-cell} python
-import cartopy
-import cartopy.crs as ccrs
-import cartopy.feature as cfeature
-
 map_trans = ccrs.AzimuthalEquidistant(
     central_latitude=swp.latitude.values,
     central_longitude=swp.longitude.values,

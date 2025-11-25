@@ -35,10 +35,9 @@ It provides classes for:
 ```{code-cell} python
 import warnings
 
-import matplotlib as mpl
-import matplotlib.pyplot as plt
 import numpy as np
 import wradlib as wrl
+from osgeo import osr
 
 warnings.filterwarnings("ignore")
 ```
@@ -51,8 +50,6 @@ The {class}`wradlib.io.gdal.VectorSource` class handles point or polygon vector 
 The following example shows how to create different DataSource objects:
 
 ```{code-cell} python
-from osgeo import osr
-
 # create gauss-krueger2 srs object
 proj_gk2 = osr.SpatialReference()
 proj_gk2.ImportFromEPSG(31466)

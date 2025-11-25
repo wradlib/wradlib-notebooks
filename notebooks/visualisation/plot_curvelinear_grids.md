@@ -83,11 +83,15 @@ First we will look into plotting a **PPI**. We start with importing the necessar
 ```{code-cell} python
 import warnings
 
+import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 import numpy as np
 import wradlib as wrl
 import wradlib_data
 import xarray as xr
+from matplotlib.ticker import FuncFormatter, MaxNLocator, NullFormatter
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+from mpl_toolkits.axisartist.grid_finder import DictFormatter, FixedLocator
 
 warnings.filterwarnings("ignore")
 ```
@@ -255,8 +259,6 @@ But there is more to know, when using the curvelinear grids! As an example, you 
 ``cgax`` and ``grid_helper`` to change azimuth and range resolution as well as tick labels:
 
 ```{code-cell} python
-from mpl_toolkits.axisartist.grid_finder import DictFormatter, FixedLocator
-
 # cg = {'lon_cycle': 360.}
 cg = {"angular_spacing": 20.0}
 fig = plt.figure(figsize=(10, 8))
@@ -348,8 +350,6 @@ caax.axis["top", "right"].set_visible(True)
 caax.axis["top", "right"].major_ticklabels.set_visible(True)
 caax.grid(True)
 
-from matplotlib.ticker import MaxNLocator
-
 caax.xaxis.set_major_locator(MaxNLocator(15))
 caax.yaxis.set_major_locator(MaxNLocator(15))
 
@@ -407,8 +407,6 @@ Everything else is much the same and you can do whatever you want as shown in th
 So just a quick example of an cg rhi plot with some decorations. Note, the ``grid_locator1`` for the theta angles is overwritten and now the grid is much finer.
 
 ```{code-cell} python
-from mpl_toolkits.axisartist.grid_finder import DictFormatter, FixedLocator
-
 # reading in GAMIC hdf5 file
 filename = wradlib_data.DATASETS.fetch("hdf5/2014-06-09--185000.rhi.mvol")
 swp = xr.open_dataset(filename, engine="gamic", group="sweep_0")
@@ -530,8 +528,6 @@ Here the abilities of [Matplotlib GridSpec](https://matplotlib.org/tutorials/int
 Now we can also plot on irregular grids. Just create your grid and take the GridSpec object as an input to the parameter ``ax`` as follows (some padding has to be adjusted to get a nice plot):
 
 ```{code-cell} python
-import matplotlib.gridspec as gridspec
-
 gs = gridspec.GridSpec(3, 3, hspace=0.75, wspace=0.4)
 subplots = [gs[0, :], gs[1, :-1], gs[1:, -1], gs[-1, 0], gs[-1, -2]]
 cbarpad = [0.05, 0.075, 0.2, 0.2, 0.2]
@@ -564,9 +560,6 @@ Here the capabilities of [Matplotlib AxesGrid1](https://matplotlib.org/tutorials
 We make a **PPI** now, it matches much better. Just plot your **PPI** data and create an axes divider:
 
 ```{code-cell} python
-from matplotlib.ticker import FuncFormatter, MaxNLocator, NullFormatter
-from mpl_toolkits.axes_grid1 import make_axes_locatable
-
 divider = make_axes_locatable(cgax)
 ```
 
@@ -626,9 +619,6 @@ def mip_formatter(x, pos):
 ```
 
 ```{code-cell} python
-from matplotlib.ticker import FuncFormatter, MaxNLocator, NullFormatter
-from mpl_toolkits.axes_grid1 import make_axes_locatable
-
 fig = plt.figure(figsize=(10, 8))
 # normal cg plot
 cg = {"latmin": 10000.0, "radial_spacing": 12}

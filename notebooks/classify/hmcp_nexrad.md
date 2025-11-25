@@ -19,16 +19,16 @@ In this notebook, measurements from NEXRAD's KDDC ground radar are used to deriv
 
 ```{code-cell} python
 import datetime as dt
-import glob
+import urllib
 import warnings
 
 import matplotlib.pyplot as plt
 import numpy as np
-import scipy
 import wradlib as wrl
 import wradlib_data
 import xarray as xr
 import xradar as xd
+from scipy import spatial
 
 warnings.filterwarnings("ignore")
 ```
@@ -66,7 +66,6 @@ rs_time = dt.datetime.fromisoformat(
     str(gr_data.time_coverage_start.values.item().decode())
 )
 wmoid = 72451
-import urllib
 
 try:
     rs_ds = wrl.io.get_radiosonde(
@@ -190,7 +189,6 @@ The ROI (maxdist) is assumed to be the current range resolution, but can be spec
 
 ```{code-cell} python
 %%time
-from scipy import spatial
 
 kwargs = dict(balanced_tree=True)
 xyz = get_xyz(gr_data4)

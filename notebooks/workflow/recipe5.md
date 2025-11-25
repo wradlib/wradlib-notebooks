@@ -16,14 +16,17 @@ kernelspec:
 # Recipe 5: Zonal Statistics - Cartesian Grid
 
 ```{code-cell} python
+import datetime as dt
 import warnings
 
-import matplotlib as mpl
+import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 import numpy as np
 import wradlib as wrl
 import wradlib_data
-import xarray as xr
+from matplotlib.collections import PatchCollection
+from matplotlib.colors import from_levels_and_colors
+from osgeo import osr
 
 warnings.filterwarnings("ignore")
 ```
@@ -82,15 +85,6 @@ def testplot(
     plt.title("Original radar rain sums")
     plt.draw()
     plt.tight_layout()
-```
-
-```{code-cell} python
-import datetime as dt
-
-import matplotlib.patches as patches
-from matplotlib.collections import PatchCollection
-from matplotlib.colors import from_levels_and_colors
-from osgeo import osr
 ```
 
 ```{code-cell} python

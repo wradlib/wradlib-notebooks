@@ -273,7 +273,7 @@ def gridplot(data, title):
     """Quick and dirty helper function to produce a grid plot"""
     xplot = np.append(xgrid, xgrid[-1] + 1.0) - 0.5
     yplot = np.append(ygrid, ygrid[-1] + 1.0) - 0.5
-    grd = ax.pcolormesh(xplot, yplot, data.reshape(gridshape), vmin=0, vmax=maxval)
+    ax.pcolormesh(xplot, yplot, data.reshape(gridshape), vmin=0, vmax=maxval)
     ax.scatter(
         obs_coords[:, 0],
         obs_coords[:, 1],
@@ -283,7 +283,6 @@ def gridplot(data, title):
         vmin=0,
         vmax=maxval,
     )
-    # plt.colorbar(grd, shrink=0.5)
     plt.title(title)
 ```
 

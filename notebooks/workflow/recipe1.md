@@ -27,9 +27,12 @@ This recipe shows a workflow to process radar data provided by the German Weathe
 - *(7)* Plotting a rainfall map using cartesian plot, see {mod}`wradlib.vis`.
 
 ```{code-cell} python
+import datetime as dt
 import glob
 import os
+import shutil
 import warnings
+import zipfile
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -134,10 +137,6 @@ def bbox(*args):
 ```
 
 ```{code-cell} python
-import datetime as dt
-import shutil
-import zipfile
-
 # set timer
 start = dt.datetime.now()
 # unzip data

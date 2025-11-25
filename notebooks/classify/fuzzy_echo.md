@@ -16,7 +16,6 @@ kernelspec:
 # Simple fuzzy echo classification from dual-pol moments
 
 ```{code-cell} python
-import os
 import warnings
 
 import matplotlib.pyplot as plt

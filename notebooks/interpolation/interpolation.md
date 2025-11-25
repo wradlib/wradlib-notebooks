@@ -16,7 +16,6 @@ kernelspec:
 # How to use wradlib's ipol module for interpolation tasks?
 
 ```{code-cell} python
-import datetime as dt
 import warnings
 
 import matplotlib.pyplot as plt
@@ -83,7 +82,7 @@ ok = wrl.ipol.OrdinaryKriging(src, trg)
 
 # Subplot layout
 def gridplot(interpolated, title=""):
-    pm = ax.pcolormesh(xtrg, ytrg, interpolated.reshape((len(xtrg), len(ytrg))))
+    ax.pcolormesh(xtrg, ytrg, interpolated.reshape((len(xtrg), len(ytrg))))
     plt.axis("tight")
     ax.scatter(src[:, 0], src[:, 1], facecolor="None", s=50, marker="s")
     plt.title(title)

@@ -25,7 +25,6 @@ import warnings
 
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
-import numpy as np
 import wradlib as wrl
 import wradlib_data
 from matplotlib.colors import LogNorm

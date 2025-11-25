@@ -27,11 +27,9 @@ import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
-import numpy as np
 import wradlib as wrl
 import wradlib_data
 from matplotlib.colors import LogNorm
-from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 warnings.filterwarnings("ignore")
 ```

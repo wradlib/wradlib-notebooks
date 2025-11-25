@@ -22,7 +22,6 @@ This recipe shows how extract the polar volume data from an ODIM_H5 hdf5 file (K
 import datetime as dt
 import warnings
 
-import matplotlib.pyplot as plt
 import numpy as np
 import wradlib as wrl
 import wradlib_data

@@ -20,7 +20,6 @@ This notebook shows how to plot the scan strategy of a specific radar.
 ```{code-cell} python
 import warnings
 
-import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import wradlib as wrl

@@ -18,7 +18,6 @@ kernelspec:
 ```{code-cell} python
 import warnings
 
-import numpy as np
 import wradlib as wrl
 import wradlib_data
 import xradar as xd

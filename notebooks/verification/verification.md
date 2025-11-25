@@ -16,7 +16,6 @@ kernelspec:
 # Routine verification measures for radar-based precipitation estimates
 
 ```{code-cell} python
-import os
 import warnings
 
 import matplotlib.pyplot as plt

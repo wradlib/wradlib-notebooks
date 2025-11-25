@@ -4,6 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
 kernelspec:
   name: python3
   display_name: Python 3
@@ -23,6 +25,9 @@ The datetime module provides a number of types to deal with dates, times, and ti
 
 ```{code-cell} python
 import datetime as dt
+
+import matplotlib.pyplot as plt
+import numpy as np
 ```
 
 There are different ways to create datetime objects.
@@ -96,17 +101,6 @@ while start <= end:
 ```
 
 [matplotlib](mplintro) generally understands `datetime` objects and tries to make sense of them in plots.
-
-```{code-cell} python
-# Instead of %matplotlib inline
-import matplotlib.pyplot as plt
-
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
-import numpy as np
-```
 
 ```{code-cell} python
 # Create some dummy data

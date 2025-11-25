@@ -17,8 +17,7 @@ kernelspec:
 
 ```{code-cell} python
 import datetime as dt
-import glob
-import os
+import urllib
 import warnings
 
 import matplotlib as mpl
@@ -27,7 +26,7 @@ import numpy as np
 import wradlib as wrl
 import wradlib_data
 import xarray as xr
-from scipy import interpolate
+import xradar as xd
 
 warnings.filterwarnings("ignore")
 ```
@@ -92,7 +91,6 @@ The function {func}`wradlib.io.misc.get_radiosonde` tries to find the next next 
 
 ```{code-cell} python
 rs_time = dt.datetime(2014, 6, 10, 12, 0)
-import urllib
 
 try:
     rs_data, rs_meta = wrl.io.get_radiosonde(10410, rs_time)
@@ -176,8 +174,6 @@ filename = wradlib_data.DATASETS.fetch(filename)
 ### Extract data for georeferencing
 
 ```{code-cell} python
-import xradar as xd
-
 swp = xr.open_dataset(
     filename, engine=xd.io.backends.GamicBackendEntrypoint, group="sweep_0", chunks={}
 )

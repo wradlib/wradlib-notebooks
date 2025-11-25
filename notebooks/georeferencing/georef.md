@@ -20,9 +20,7 @@ import warnings
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-import numpy as np
 import wradlib as wrl
-import xarray as xr
 import xradar as xd
 from matplotlib.patches import Rectangle
 

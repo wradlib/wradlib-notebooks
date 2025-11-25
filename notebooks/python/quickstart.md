@@ -22,6 +22,10 @@ This notebook will
 - confront you with some Python exercises,
 - and refer you to further in-depth courses for learning Python.
 
+```{code-cell} python
+import os
+```
+
 ## Hello interpreted world
 
 Python is an interpreted language just as e.g. R, Matlab and many others. In contrast to a compiled languages such as C, C++ or Fortran, each command is immediately interpreted by the Python interpreter. In this case, executing the following cell produces an immediate output.
@@ -213,8 +217,6 @@ For most applications, you will need to use `functions` that are available in `m
 In order to use a function from a module, you need to `import` the module. See e.g. how to import the `os` module and use its `getcwd` function (which returns the path to the current working directory):
 
 ```{code-cell} python
-import os
-
 mycwd = os.getcwd()
 print(mycwd)
 ```

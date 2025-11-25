@@ -35,7 +35,6 @@ import pyproj
 import wradlib as wrl
 import wradlib_data
 import xarray as xr
-import xradar as xd
 
 warnings.filterwarnings("ignore")
 ```
@@ -298,8 +297,6 @@ In the following example, we will use an illustrative one-dimensional example wi
 First, we create the synthetic "true" rainfall (``truth``):
 
 ```{code-cell} python
-import numpy as np
-
 radar_coords = np.arange(0, 101)
 np.random.seed(1319622840)
 truth = np.abs(1.5 + np.sin(0.075 * radar_coords)) + np.random.uniform(

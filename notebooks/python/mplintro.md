@@ -20,27 +20,25 @@ Matplotlib is the key Python package for producing so called publication-ready p
 ### In a Python script
 
 ```{code-cell} python
+# This explicitely import the module into the namespace
 import matplotlib.pyplot as plt
+import numpy as np
 ```
 
 ### In an IPython notebook
 
-```{code-cell} python
+```python
 # This magic just sets up matplotlib's interactive mode
 %matplotlib
-# So you have to explicitely import the module into the namespace
-import matplotlib.pyplot as plt
 ```
 
 If you want to enable `inline plotting`
 
 (**mandatory if you use the** [Virtual Machine for Cross-Platform Weather Radar Science](https://openradarscience.org/vm-docs/))
 
-```{code-cell} python
+```python
 # This magic just sets up matplotlib's interactive mode
 %matplotlib inline
-# So you have to explicitely import the module into the namespace
-import matplotlib.pyplot as plt
 ```
 
 `%matplotlib inline` turns on "inline plotting", where plot graphics will appear in your notebook. This has important implications for interactivity: for inline plotting, commands in cells below the cell that outputs a plot will not affect the plot. For example, changing the color map is not possible from cells below the cell that creates a plot. However, for other backends, such as qt4, that open a separate window, cells below those that create the plot will change the plot - it is a live object in memory. If you are not using matplotlib in interactive mode at all, figures will only appear if you invoke `plt.show()`.
@@ -48,7 +46,7 @@ import matplotlib.pyplot as plt
 If you do not want to use inline plotting, just use `%matplotlib` instead of `%matplotlib inline`. The Kernel has to be restarted for this change to become effective.
 
 If you want to magically import numpy and matplotlib
-```{code-cell} python
+```python
 %pylab
 # or
 %pylab inline
@@ -56,7 +54,7 @@ If you want to magically import numpy and matplotlib
 
 In the following, we use a sightly different syntax for `matplotlib inline`. This is because the notebook needs to be convertable to a Python script where IPython magic does not work. Please don't let this confuse you...
 
-```{code-cell} python
+```python
 # Instead of matplotlib inline
 import matplotlib.pyplot as plt
 
@@ -64,12 +62,11 @@ try:
     get_ipython().run_line_magic("matplotlib inline")
 except:
     plt.ion()
-import numpy as np
 ```
 
 ## Simple plots and decorations
 
-After these imports, inline plots should work rightaway, e.g. a simple line plot of the sinus function:
+After these imports, inline plots should work right away, e.g. a simple line plot of the sinus function:
 
 ```{code-cell} python
 x = np.arange(0, 4 * np.pi, 0.1)

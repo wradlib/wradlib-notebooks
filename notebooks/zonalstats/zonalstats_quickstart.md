@@ -20,22 +20,18 @@ Zonal statistics can be used to compute e.g. the areal average precipitation ove
 Here, we show a brief example using RADOLAN composite data from the German Weather Service (DWD).
 
 ```{code-cell} python
+import datetime as dt
+import os
 import warnings
 
-import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import wradlib as wrl
 import wradlib_data
-from osgeo import osr
+from matplotlib.colors import from_levels_and_colors
+from osgeo import gdal, ogr, osr
 
 warnings.filterwarnings("ignore")
-```
-
-```{code-cell} python
-import matplotlib.patches as patches
-from matplotlib.collections import PatchCollection
-from matplotlib.colors import from_levels_and_colors
 ```
 
 ## Preparing the RADOLAN data
@@ -103,10 +99,6 @@ ds = ds.assign_coords(
 As an example it is shown how to fix a shapefile with missing projection information.
 
 ```{code-cell} python
-import os
-
-from osgeo import gdal, ogr, osr
-
 # Shape Source Projection
 proj_gk2 = osr.SpatialReference()
 proj_gk2.ImportFromEPSG(31466)
@@ -244,8 +236,6 @@ avg = obj.mean(ds_clip.SF.values.ravel())
 We now plot the data using matplotlib accessors of `geopandas` (vector) and `xarray` (raster).
 
 ```{code-cell} python
-from matplotlib.colors import from_levels_and_colors
-
 # Create discrete colormap
 levels = np.arange(0, 30, 2.5)
 colors = plt.cm.inferno(np.linspace(0, 1, len(levels)))
@@ -305,8 +295,6 @@ The computational expensive part is the computation of intersections and weights
 You can dump the results on disk and read them from there when required. Let's do a little benchmark:
 
 ```{code-cell} python
-import datetime as dt
-
 # dump to file
 zd.dump_vector("test_zonal_poly_cart")
 

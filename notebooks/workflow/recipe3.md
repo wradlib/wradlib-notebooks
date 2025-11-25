@@ -47,17 +47,15 @@ The base routines are designed to process one GR sweep at a time. If a full GR v
 A **SR** data set is typically organised as arrays with dimensions `(nscan_sr, nray_sr, ngate_sr)`.
 
 ```{code-cell} python
-import datetime as dt
 import warnings
 
-import matplotlib as mpl
+import cmweather  # noqa: F401
 import matplotlib.pyplot as plt
 import numpy as np
 import wradlib as wrl
 import wradlib_data
 import xarray as xr
 import xradar as xd
-from osgeo import osr
 
 warnings.filterwarnings("ignore")
 ```
@@ -238,7 +236,6 @@ sr_data["dprAlt"].values
 ```{code-cell} python
 # Todo: make height level parameterizable via keyword argument
 # Todo: plot gr radar domain and satellite swath outlines
-import cmweather
 
 
 def plot_unmatched_refl(sr_data, swp, level=-5):
@@ -883,8 +880,8 @@ def plot_matched_refl(sr_data, gr_data, xyz):
     cbar.ax.tick_params(labelsize=12)
     plt.xlabel("Longitude (°)", fontsize=12)
     plt.ylabel("Latitude (°)", fontsize=12)
-    a = plt.xticks(fontsize=12)
-    a = plt.yticks(fontsize=12)
+    _ = plt.xticks(fontsize=12)
+    _ = plt.yticks(fontsize=12)
     plt.title("Satellite Radar", fontsize=12, loc="left")
 
     plt.grid(lw=0.25, color="grey")
@@ -898,8 +895,8 @@ def plot_matched_refl(sr_data, gr_data, xyz):
     cbar.ax.tick_params(labelsize=12)
     plt.xlabel("x (km)", fontsize=12)
     plt.ylabel("y (km)", fontsize=12)
-    a = plt.xticks(fontsize=12)
-    a = plt.yticks(fontsize=12)
+    _ = plt.xticks(fontsize=12)
+    _ = plt.yticks(fontsize=12)
     plt.title("Ground Radar", fontsize=12, loc="left")
     plt.grid(lw=0.25, color="grey")
     plt.tight_layout()

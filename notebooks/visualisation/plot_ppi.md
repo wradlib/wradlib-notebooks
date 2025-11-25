@@ -18,7 +18,8 @@ kernelspec:
 ```{code-cell} python
 import warnings
 
-import cmweather
+import cartopy.crs as ccrs
+import cmweather  # noqa: F401
 import matplotlib.pyplot as plt
 import numpy as np
 import wradlib as wrl
@@ -175,8 +176,6 @@ txt = plt.title("Projection Side Effects")
 ## Plot on Mercator-Map using cartopy
 
 ```{code-cell} python
-import cartopy.crs as ccrs
-
 map_proj = ccrs.Mercator(central_longitude=site[1])
 ```
 

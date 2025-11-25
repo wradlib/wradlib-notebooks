@@ -25,7 +25,6 @@ Rainfall-induced attenuation is a major source of underestimation for radar-base
 import warnings
 
 import matplotlib.pyplot as plt
-import numpy as np
 import wradlib as wrl
 import wradlib_data
 

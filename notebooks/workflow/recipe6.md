@@ -16,14 +16,17 @@ kernelspec:
 # Recipe 6: Zonal Statistics - Polar Grid
 
 ```{code-cell} python
+import datetime as dt
 import warnings
 
-import matplotlib as mpl
+import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 import numpy as np
 import wradlib as wrl
 import wradlib_data
 import xarray as xr
+from matplotlib.colors import from_levels_and_colors
+from osgeo import osr
 
 warnings.filterwarnings("ignore")
 ```
@@ -68,7 +71,7 @@ def testplot(
 
     # Original radar data
     ax1 = fig.add_subplot(212, aspect="equal")
-    pm = ds.plot(
+    ds.plot(
         x="xc",
         y="yc",
         cmap=radocmap,
@@ -82,15 +85,6 @@ def testplot(
     plt.title("Original radar rain sums")
     plt.draw()
     plt.tight_layout()
-```
-
-```{code-cell} python
-import datetime as dt
-
-import matplotlib.patches as patches
-from matplotlib.collections import PatchCollection
-from matplotlib.colors import from_levels_and_colors
-from osgeo import osr
 ```
 
 ```{code-cell} python
