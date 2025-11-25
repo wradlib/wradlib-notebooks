@@ -1,6 +1,6 @@
 name: CI
 env:
-  micromamba_version: 1.5
+  micromamba_version: 2
 
 
 on:
@@ -24,17 +24,17 @@ jobs:
         shell: bash -l {0}
     env:
       WRADLIB_DATA: ./wradlib-data
-      CONDA_ENV_FILE: ci/requirements/notebooks.yml
+      CONDA_ENV_FILE: environment.yml
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.12"]
+        python-version: ["3.13"]
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v5
       with:
         fetch-depth: 0
     - name: Install micromamba environment
-      uses: mamba-org/setup-micromamba@v1
+      uses: mamba-org/setup-micromamba@v2
       with:
         environment-name: wradlib-notebooks
         environment-file: ${{env.CONDA_ENV_FILE}}
@@ -42,16 +42,6 @@ jobs:
         cache-environment-key: "${{runner.os}}-${{runner.arch}}-py${{env.PYTHON_VERSION}}-${{env.TODAY}}-${{hashFiles(env.CONDA_ENV_FILE)}}"
         create-args: >-
           python=${{matrix.python-version}}
-    - name: Install wradlib
-      run: |
-        git clone https://github.com/wradlib/wradlib.git
-        cd wradlib
-        echo "WRADLIB_TAG=`git name-rev --name-only --tags HEAD`" >> $GITHUB_ENV
-        python -m pip install . --no-deps
-    - name: Install wradlib-data
-      run: |
-        python -m pip install wradlib-data
-        mkdir ./wradlib-data
     - name: Version Info
       run: |
         python -c "import wradlib; print(wradlib.version.version)"
@@ -62,23 +52,6 @@ jobs:
       run: |
         export WRADLIB_DATA=`realpath $WRADLIB_DATA`
         pytest -n auto --verbose --durations=15 --pyargs notebooks
-    - name: Commit files
-      if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-      run: |
-        git config --global user.email "wradlib-docs@wradlib.org"
-        git config --global user.name "wradlib-docs-bot"
-        git checkout --orphan render
-        git add --all .
-        git commit -m "Rendering at commit $GITHUB_SHA"
-    - name: Push changes
-      if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-      run: |
-        if [ $WRADLIB_TAG == 'undefined' ]; then
-            BRANCH=devel
-        else
-            BRANCH=$WRADLIB_TAG
-        fi
-        git push https://${{ secrets.GITHUB_TOKEN }}@github.com/wradlib/wradlib-notebooks.git render:$BRANCH -fq
 
   build_1:
     name: wradlib notebooks - macosx
@@ -88,17 +61,17 @@ jobs:
         shell: bash -l {0}
     env:
       WRADLIB_DATA: ./wradlib-data
-      CONDA_ENV_FILE: ci/requirements/notebooks.yml
+      CONDA_ENV_FILE: environment.yml
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.12"]
+        python-version: ["3.13"]
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v5
       with:
         fetch-depth: 0
     - name: Install micromamba environment
-      uses: mamba-org/setup-micromamba@v1
+      uses: mamba-org/setup-micromamba@v2
       with:
         environment-name: wradlib-notebooks
         environment-file: ${{env.CONDA_ENV_FILE}}
@@ -106,16 +79,6 @@ jobs:
         cache-environment-key: "${{runner.os}}-${{runner.arch}}-py${{env.PYTHON_VERSION}}-${{env.TODAY}}-${{hashFiles(env.CONDA_ENV_FILE)}}"
         create-args: >-
           python=${{matrix.python-version}}
-    - name: Install wradlib
-      run: |
-        git clone https://github.com/wradlib/wradlib.git
-        cd wradlib
-        echo "WRADLIB_TAG=`git name-rev --name-only --tags HEAD`" >> $GITHUB_ENV
-        python -m pip install . --no-deps
-    - name: Install wradlib-data
-      run: |
-        python -m pip install wradlib-data
-        mkdir ./wradlib-data
     - name: Version Info
       run: |
         python -c "import wradlib; print(wradlib.version.version)"
@@ -135,17 +98,17 @@ jobs:
         shell: bash -l {0}
     env:
       WRADLIB_DATA: ./wradlib-data
-      CONDA_ENV_FILE: ci/requirements/notebooks.yml
+      CONDA_ENV_FILE: environment.yml
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.12"]
+        python-version: ["3.13"]
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v5
       with:
         fetch-depth: 0
     - name: Install micromamba environment
-      uses: mamba-org/setup-micromamba@v1
+      uses: mamba-org/setup-micromamba@v2
       with:
         environment-name: wradlib-notebooks
         environment-file: ${{env.CONDA_ENV_FILE}}
@@ -153,15 +116,6 @@ jobs:
         cache-environment-key: "${{runner.os}}-${{runner.arch}}-py${{env.PYTHON_VERSION}}-${{env.TODAY}}-${{hashFiles(env.CONDA_ENV_FILE)}}"
         create-args: >-
           python=${{matrix.python-version}}
-    - name: Install wradlib
-      run: |
-        git clone https://github.com/wradlib/wradlib.git
-        cd wradlib
-        python -m pip install . --no-deps
-    - name: Install wradlib-data
-      run: |
-        python -m pip install wradlib-data
-        mkdir ./wradlib-data
     - name: Version Info
       run: |
         python -c "import wradlib; print(wradlib.version.version)"
@@ -172,20 +126,3 @@ jobs:
       run: |
         export WRADLIB_DATA=`python -c "import os, sys; print(os.path.realpath(sys.argv[1]))" $WRADLIB_DATA`
         pytest -n auto --verbose --durations=15 --pyargs notebooks
-
-  trigger_rtd:
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-    needs: [build_0]
-    name: trigger readthedocs
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash -l {0}
-    env:
-      RTD_TOKEN: ${{ secrets.RTD_TOKEN }}
-      RTD_URL: ${{ secrets.RTD_URL }}
-    steps:
-    - name: trigger readthedocs
-      run: |
-        echo "triggering"
-        curl -X POST -H "Authorization: Token $RTD_TOKEN" "$RTD_URL"

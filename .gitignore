@@ -13,6 +13,8 @@
 # whitelist notebooks
 !notebooks/
 #!/notebooks/**
+# ignore .py (paired notebooks)
+notebooks/**/*.py
 
 # whitelist .dask
 !.dask/
