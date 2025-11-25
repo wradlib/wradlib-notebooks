@@ -31,21 +31,16 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install ruff black jupytext
-
-      - name: Convert notebooks to temporary .py files
-        run: |
-          jupytext --to py notebooks/**/*.md
+          pip install nbqa ruff black jupytext isort
 
       - name: Lint with Ruff
-        run: ruff check notebooks/**/*.py
+        run: nbqa ruff check notebooks/**/*.py
+
+      - name: Lint with isort
+        run: nbqa isort notebooks/**/*.py
 
       - name: Check formatting with Black
-        run: black --check notebooks/**/*.py
-
-      - name: Cleanup temporary .py files
-        run: |
-          find notebooks -name "*.py" ! -name "__init__.py" ! -name "conftest.py" -delete
+        run: nbqa black --check notebooks/**/*.py
 
   build_0:
     name: wradlib notebooks - linux
