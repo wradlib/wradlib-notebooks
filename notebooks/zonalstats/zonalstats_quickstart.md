@@ -28,6 +28,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import wradlib as wrl
 import wradlib_data
+from IPython.display import display
 from matplotlib.colors import from_levels_and_colors
 from osgeo import gdal, ogr, osr
 

@@ -29,6 +29,7 @@ import xarray as xr
 import numpy as np
 import warnings
 from pyproj.crs import CRS
+from IPython.display import display
 
 warnings.filterwarnings("ignore")
 

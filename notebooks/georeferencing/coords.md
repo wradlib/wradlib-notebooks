@@ -21,6 +21,7 @@ import warnings
 import wradlib as wrl
 import wradlib_data
 import xradar as xd
+from IPython.display import display
 
 warnings.filterwarnings("ignore")
 ```

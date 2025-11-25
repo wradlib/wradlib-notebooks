@@ -19,7 +19,7 @@ In this example, we read CfRadial2 data files using the xarray `cfradial2` backe
 import wradlib as wrl
 import wradlib_data
 import warnings
-
+from IPython.display import display
 
 import matplotlib.pyplot as plt
 import numpy as np

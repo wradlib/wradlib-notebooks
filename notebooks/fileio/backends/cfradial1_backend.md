@@ -21,7 +21,7 @@ Data is also exported to ODIM_H5 and CfRadial2.
 import wradlib as wrl
 import wradlib_data
 import warnings
-
+from IPython.display import display
 
 import matplotlib.pyplot as plt
 import numpy as np

@@ -39,6 +39,7 @@ import numpy as np
 import urllib3
 import xarray as xr
 import xradar as xd
+from IPython.display import display
 
 warnings.filterwarnings("ignore")
 ```

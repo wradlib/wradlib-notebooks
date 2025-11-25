@@ -106,11 +106,11 @@ A list is an ordered collection of objects which may have different types.
 
 ```{code-cell} python
 # a list
-l = [1, "Paris", 3.0]
+mylist = [1, "Paris", 3.0]
 # a list is "mutable" (i.e. you can change the values of its elements)
-l[1] = 2
-print(l)
-print(l[0:2])
+mylist[1] = 2
+print(mylist)
+print(mylist[0:2])
 ```
 
 ## Excursus: indexing in Python

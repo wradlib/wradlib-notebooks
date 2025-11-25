@@ -26,6 +26,7 @@ import wradlib as wrl
 import wradlib_data
 import xarray as xr
 from dask.diagnostics import ProgressBar
+from IPython.display import display
 
 warnings.filterwarnings("ignore")
 ```

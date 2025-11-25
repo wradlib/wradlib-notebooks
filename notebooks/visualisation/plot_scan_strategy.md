@@ -18,6 +18,7 @@ kernelspec:
 This notebook shows how to plot the scan strategy of a specific radar.
 
 ```{code-cell} python
+import os
 import warnings
 
 import matplotlib.pyplot as plt
@@ -105,8 +106,6 @@ For this to work the `WRADLIB_DATA` environment variable has to point a writable
 
 ```{code-cell} python
 # only run if environment variables are set
-import os
-
 has_data = os.environ.get("WRADLIB_EARTHDATA_BEARER_TOKEN", False)
 ```
 

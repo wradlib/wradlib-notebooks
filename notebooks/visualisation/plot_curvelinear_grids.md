@@ -89,6 +89,7 @@ import numpy as np
 import wradlib as wrl
 import wradlib_data
 import xarray as xr
+from IPython.display import display
 from matplotlib.ticker import FuncFormatter, MaxNLocator, NullFormatter
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 from mpl_toolkits.axisartist.grid_finder import DictFormatter, FixedLocator

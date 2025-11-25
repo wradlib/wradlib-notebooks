@@ -22,6 +22,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import wradlib
 import xarray as xr
+from IPython.display import display
 from wradlib.util import get_wradlib_data_file
 
 warnings.filterwarnings("ignore")

@@ -35,6 +35,7 @@ import pyproj
 import wradlib as wrl
 import wradlib_data
 import xarray as xr
+from IPython.display import display
 
 warnings.filterwarnings("ignore")
 ```
