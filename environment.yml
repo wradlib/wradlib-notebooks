@@ -1,0 +1,33 @@
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.13
+  - bottleneck
+  - cartopy
+  - git
+  - gdal
+  - geopandas
+  - ipykernel
+  - jupytext
+  - libgdal-hdf5
+  - libgdal-netcdf
+  - linkify-it-py
+  - matplotlib-base
+  - myst-nb
+  - nbconvert
+  - notebook
+  - numpy
+  - open-radar-data
+  - pytest
+  - pytest-sugar
+  - pytest-xdist
+  - requests
+  - rioxarray
+  - sphinx
+  - sphinx-copybutton
+  - sphinx-book-theme>=1.0
+  - wradlib
+  - xarray >=2024.10.0
+  - pip:
+      - wradlib_data

@@ -1,32 +1,47 @@
 repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+  # --- Jupytext: create temporary .py mirrors from MyST notebooks ---
+  - repo: https://github.com/mwouts/jupytext
+    rev: v1.19.0.dev0
     hooks:
-      - id: trailing-whitespace
-      - id: end-of-file-fixer
-      - id: check-docstring-first
-      - id: check-json
-      - id: check-yaml
-      - id: debug-statements
-      - id: mixed-line-ending
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.3.1
-    hooks:
-      - id: pyupgrade
-        args:
-          - '--py38-plus'
-  - repo: https://github.com/kynan/nbstripout
-    rev: 0.6.1
-    hooks:
-      - id: nbstripout
-        args: ['--extra-keys', 'metadata.kernelspec cell.metadata.pycharm cell.metadata.tags']
-  - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: 'v0.0.254'
+      - id: jupytext
+        name: jupytext (md → py)
+        files: "^notebooks/.*\\.md$"
+        args: ["--to", "py:percent"]
+        pass_filenames: false
+        always_run: true
+
+  # --- Ruff ---
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.6
     hooks:
       - id: ruff
-        args: [ "--fix" ]
+        name: ruff (lint + fix)
+        files: "^notebooks/.*\\.py$"
+        args: ["--fix"]
+
+  # --- Black ---
   - repo: https://github.com/psf/black
-    rev: 23.1.0
+    rev: 25.11.0
     hooks:
       - id: black
-      - id: black-jupyter
+        files: "^notebooks/.*\\.py$"
+
+  # --- Jupytext: sync py → md (only paired mirrors) ---
+  - repo: https://github.com/mwouts/jupytext
+    rev: v1.19.0.dev0
+    hooks:
+      - id: jupytext
+        name: jupytext (sync py → md)
+        files: '^notebooks/(?!__init__\\.py$)(?!conftest\\.py$).*\\.py$'
+        args: ["--sync"]
+        # DO NOT set pass_filenames: false
+        always_run: false
+
+  # --- Cleanup temporary .py files ---
+  - repo: local
+    hooks:
+      - id: cleanup-jupytext
+        name: Remove temporary Jupytext Python mirrors
+        entry: bash -c "find notebooks -type f -name '*.py' ! -name '__init__.py' ! -name 'conftest.py' -exec rm -f {} +"
+        language: system
+        always_run: true

@@ -1,0 +1,13 @@
+version: 2
+
+build:
+  os: ubuntu-24.04
+  tools:
+    python: mambaforge-latest
+
+conda:
+  environment: environment.yml
+
+sphinx:
+  builder: html
+  configuration: conf.py
