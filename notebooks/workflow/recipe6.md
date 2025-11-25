@@ -19,7 +19,6 @@ kernelspec:
 import datetime as dt
 import warnings
 
-import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 import numpy as np
 import wradlib as wrl

@@ -27,15 +27,12 @@ The following code is based on [xarray](https://docs.xarray.dev) and [xradar](ht
 
 ```{code-cell} python
 import glob
-import io
 import os
 import shutil
 import warnings
 from html.parser import HTMLParser
 
-import cartopy
 import cartopy.crs as ccrs
-import cartopy.feature as cfeature
 import certifi
 import matplotlib.pyplot as plt
 import numpy as np
