@@ -34,13 +34,13 @@ jobs:
           pip install nbqa ruff black jupytext isort
 
       - name: Lint with Ruff
-        run: nbqa ruff notebooks/**/*.py
+        run: nbqa ruff notebooks/**/*.md
 
-      - name: Lint with isort
-        run: nbqa isort notebooks/**/*.py
+      - name: Lint with Isort
+        run: nbqa isort notebooks/**/*.md
 
       - name: Check formatting with Black
-        run: nbqa black notebooks/**/*.py
+        run: nbqa black notebooks/**/*.md
 
   build_0:
     name: wradlib notebooks - linux
