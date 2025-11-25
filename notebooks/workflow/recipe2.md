@@ -4,6 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
 kernelspec:
   name: python3
   display_name: Python 3
@@ -17,25 +19,21 @@ kernelspec:
 This recipe shows how extract the polar volume data from an ODIM_H5 hdf5 file (KNMI example file from OPERA), construct a 3-dimensional Cartesian volume and produce a diagnostic plot. The challenge for this file is that for each elevation angle, the scan strategy is different.
 
 ```{code-cell} python
+import datetime as dt
+import warnings
+
+import matplotlib.pyplot as plt
+import numpy as np
 import wradlib as wrl
 import wradlib_data
 import xarray as xr
 import xradar as xd
-import matplotlib.pyplot as plt
-import warnings
+from osgeo import osr
 
 warnings.filterwarnings("ignore")
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
-import numpy as np
 ```
 
 ```{code-cell} python
-import datetime as dt
-from osgeo import osr
-
 # read the data (sample file in WRADLIB_DATA)
 filename = wradlib_data.DATASETS.fetch("hdf5/knmi_polar_volume.h5")
 

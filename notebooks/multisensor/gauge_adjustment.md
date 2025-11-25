@@ -4,6 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
 kernelspec:
   name: python3
   display_name: Python 3
@@ -20,14 +22,9 @@ There are various ways to correct specific errors and artifacts in radar-based q
 $\omega radlib$ provides different error models and different spatial interpolation methods to address the adjustment problem. For details, please refer to {mod}`wradlib.adjust`.
 
 ```{code-cell} python
-import wradlib as wrl
-import numpy as np
 import matplotlib.pyplot as plt
-
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
+import numpy as np
+import wradlib as wrl
 ```
 
 ## Example for the 1-dimensional case
@@ -168,6 +165,8 @@ mixerror = wrl.verify.ErrorMetrics(truth, mixed_adjusted)
 
 ```{code-cell} python
 # Helper function for scatter plot
+
+
 def scatterplot(x, y, title=""):
     """Quick and dirty helper function to produce scatter plots"""
     plt.scatter(x, y)
@@ -268,6 +267,8 @@ multadjusted = multadjuster(obs, radar)
 
 ```{code-cell} python
 # Helper functions for grid plots
+
+
 def gridplot(data, title):
     """Quick and dirty helper function to produce a grid plot"""
     xplot = np.append(xgrid, xgrid[-1] + 1.0) - 0.5

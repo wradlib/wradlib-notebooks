@@ -4,6 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
 kernelspec:
   name: python3
   display_name: Python 3
@@ -228,6 +230,7 @@ print(mycwd)
 - Alternatively, you can get help for a function in any Python environment by calling `help` (e.g. `help(os.getcwd)`). In juypter, you can also use the following syntax: `os.getcwd?`
 
 ```{code-cell} python
+
 ```
 
 ## Writing your own functions
@@ -238,6 +241,8 @@ This is how you define and call a function (notice again the **indentation**):
 
 ```{code-cell} python
 # Define the function...
+
+
 def demofunction(a, b):
     c = a + b
     return c
@@ -271,6 +276,7 @@ def demofunction(a, b):
 Now try calling `help(demofunction)`.
 
 ```{code-cell} python
+
 ```
 
 This should be the output:

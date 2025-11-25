@@ -4,6 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
 kernelspec:
   name: python3
   display_name: Python 3
@@ -16,17 +18,14 @@ kernelspec:
 Detects areas with anomalously low or high average reflectivity or precipitation. It is recommended to use long term average or sums (months to year).
 
 ```{code-cell} python
-import wradlib as wrl
-import wradlib_data
-import numpy as np
-import matplotlib.pyplot as plt
 import warnings
 
+import matplotlib.pyplot as plt
+import numpy as np
+import wradlib as wrl
+import wradlib_data
+
 warnings.filterwarnings("ignore")
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
 ```
 
 ## Load annual rainfall accumulation example (from DWD radar Feldberg)

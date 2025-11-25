@@ -1,12 +1,14 @@
 ---
 jupytext:
-  formats: md:myst
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
+  main_language: python
 kernelspec:
-  name: python3
   display_name: Python 3
+  name: python3
 ---
 
 ```{include} ../../_includes/license_block.md
@@ -22,18 +24,15 @@ We require
 Here we use pre-processed data from the [GTOPO30](https://www.usgs.gov/centers/eros/science/usgs-eros-archive-digital-elevation-global-30-arc-second-elevation-gtopo30) and [SRTM](https://www2.jpl.nasa.gov/srtm/index.html) missions.
 
 ```{code-cell} python
-import wradlib as wrl
-import wradlib_data
-import matplotlib.pyplot as plt
-import matplotlib as mpl
 import warnings
 
-warnings.filterwarnings("ignore")
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
+import matplotlib as mpl
+import matplotlib.pyplot as plt
 import numpy as np
+import wradlib as wrl
+import wradlib_data
+
+warnings.filterwarnings("ignore")
 ```
 
 ## Setup for Bonn radar
@@ -142,6 +141,8 @@ Now we visualize
 
 ```{code-cell} python
 # just a little helper function to style x and y axes of our maps
+
+
 def annotate_map(ax, cm=None, title=""):
     ticks = (ax.get_xticks() / 1000).astype(int)
     ax.set_xticklabels(ticks)
@@ -149,7 +150,7 @@ def annotate_map(ax, cm=None, title=""):
     ax.set_yticklabels(ticks)
     ax.set_xlabel("Kilometers")
     ax.set_ylabel("Kilometers")
-    if not cm is None:
+    if cm is not None:
         plt.colorbar(cm, ax=ax)
     if not title == "":
         ax.set_title(title)

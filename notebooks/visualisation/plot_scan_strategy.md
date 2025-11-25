@@ -4,6 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
 kernelspec:
   name: python3
   display_name: Python 3
@@ -16,18 +18,15 @@ kernelspec:
 This notebook shows how to plot the scan strategy of a specific radar.
 
 ```{code-cell} python
-import wradlib as wrl
-import wradlib_data
-import matplotlib.pyplot as plt
-import matplotlib as mpl
 import warnings
 
-warnings.filterwarnings("ignore")
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
+import matplotlib as mpl
+import matplotlib.pyplot as plt
 import numpy as np
+import wradlib as wrl
+import wradlib_data
+
+warnings.filterwarnings("ignore")
 ```
 
 ## Setup Radar details

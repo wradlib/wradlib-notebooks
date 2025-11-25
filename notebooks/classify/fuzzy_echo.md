@@ -4,6 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
 kernelspec:
   name: python3
   display_name: Python 3
@@ -14,19 +16,16 @@ kernelspec:
 # Simple fuzzy echo classification from dual-pol moments
 
 ```{code-cell} python
-import wradlib
-from wradlib.util import get_wradlib_data_file
 import os
-import numpy as np
-import matplotlib.pyplot as plt
 import warnings
+
+import matplotlib.pyplot as plt
+import numpy as np
+import wradlib
 import xarray as xr
+from wradlib.util import get_wradlib_data_file
 
 warnings.filterwarnings("ignore")
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
 ```
 
 ## Setting the file paths

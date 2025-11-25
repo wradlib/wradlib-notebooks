@@ -25,13 +25,10 @@ import wradlib as wrl
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import warnings
+import numpy as np
 
 warnings.filterwarnings("ignore")
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
-import numpy as np
+
 ```
 
 The {class}`wradlib.io.VectorSource` class handles point or polygon vector data by wrapping ogr.DataSource with special functions.

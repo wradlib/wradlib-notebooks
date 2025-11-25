@@ -20,11 +20,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import warnings
 
+
 warnings.filterwarnings("ignore")
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
 ```
 
 [HDF5](https://www.hdfgroup.org/solutions/hdf5/) is a data model, library, and file format for storing and managing data. The [OPERA program](https://www.eumetnet.eu/activities/observations-programme/current-activities/opera/) developed a convention (or information model) on how to store and exchange radar data in hdf5 format. It is based on the work of [COST Action 717](https://www.cost.eu/actions/717/) and is used e.g. in real-time operations in the Nordic European countries. The OPERA Data and Information Model (ODIM) is documented [here under OPERA Publications](https://www.eumetnet.eu/activities/observations-programme/current-activities/opera/). Make use of these documents in order to understand the organization of OPERA hdf5 files!

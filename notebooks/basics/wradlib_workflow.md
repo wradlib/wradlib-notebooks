@@ -4,6 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
 kernelspec:
   name: python3
   display_name: Python 3
@@ -20,29 +22,22 @@ Moreover, it might be necessary to transfer the data from polar coordinates to c
 
 These are just some steps that might be necessary in order to make radar data useful in a specific quantitative application environment. All steps together are typically referred to as a *"radar data processing chain"*. $\omega radlib$ was designed to support you in establishing your own processing chain, suited to your specific requirements. In the following, we will provide an outline of a typical processing chain, step-by-step. You might not need all steps for your own workflow, or you might need steps which are not yet included here.
 
-```{code-cell} python
-import wradlib as wrl
-import wradlib_data
-import xarray as xr
-import xradar as xd
-import matplotlib.pyplot as plt
-import pyproj
-import warnings
-
-warnings.filterwarnings("ignore")
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
-import numpy as np
-```
-
 ## Introduction
 
 Consider this just as an example. We will not go into detail for each step in this section, but refer to more detailed tutorials (if available) or the corresponding entry in the library reference. Most of the steps have a corresponding $\omega radlib$ module. In order to access the functions of $\omega radlib$, you have to import $\omega radlib$ in your Python environment:
 
 ```{code-cell} python
+import warnings
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pyproj
 import wradlib as wrl
+import wradlib_data
+import xarray as xr
+import xradar as xd
+
+warnings.filterwarnings("ignore")
 ```
 
 If you have trouble with that import, please head back to the [Installation](https://docs.wradlib.org/en/latest/installation.html) section.

@@ -4,6 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
 kernelspec:
   name: python3
   display_name: Python 3
@@ -16,25 +18,19 @@ kernelspec:
 In this notebook, GPM Dual Frequency Radar (DPR) measurements are used to derive Hydrometeor Partitioning Ratios (HPR) according to Pejcic et al 2025 (in review). This requires the measured Ku-band reflectivity, the dual-frequency ratios (Ku-band - Ka-band) and the DPR temperature and rain type information. The HPRs for the different hydrometeor classes are then presented.
 
 ```{code-cell} python
-import wradlib as wrl
-import wradlib_data
-import numpy as np
-
+import glob
 import warnings
-warnings.filterwarnings("ignore")
 
 import matplotlib.pyplot as plt
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
-
-
-import glob
-import xarray as xr
-import scipy
+import numpy as np
 import pandas as dp
+import scipy
+import wradlib as wrl
+import wradlib_data
+import xarray as xr
 from dask.diagnostics import ProgressBar
+
+warnings.filterwarnings("ignore")
 ```
 
 ## Read dual-frequency satellite observations (GPM)

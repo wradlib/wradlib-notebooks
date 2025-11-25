@@ -4,6 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
 kernelspec:
   name: python3
   display_name: Python 3
@@ -14,18 +16,14 @@ kernelspec:
 # Clutter detection using the Gabella approach
 
 ```{code-cell} python
+import warnings
+
 import matplotlib.pyplot as plt
 import numpy as np
 import wradlib as wrl
 import wradlib_data
-import warnings
 
 warnings.filterwarnings("ignore")
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
-import numpy as np
 ```
 
 ## Read the data

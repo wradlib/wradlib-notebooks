@@ -21,10 +21,6 @@ import numpy as np
 import warnings
 
 warnings.filterwarnings("ignore")
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
 ```
 
 Rainbow refers to the commercial [RAINBOW®5 APPLICATION SOFTWARE](https://www.leonardogermany.com/en/products/rainbow-5) which exports data in an XML flavour, which due to binary data blobs violates XML standard. Leonardo/Gematronik provided python code for implementing this reader in $\omega radlib$, which is very much appreciated.

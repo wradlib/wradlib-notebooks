@@ -4,6 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
 kernelspec:
   name: python3
   display_name: Python 3
@@ -14,18 +16,15 @@ kernelspec:
 # Quick-view a sweep in polar or cartesian reference systems
 
 ```{code-cell} python
-import numpy as np
+import warnings
+
+import cmweather
 import matplotlib.pyplot as plt
+import numpy as np
 import wradlib as wrl
 import wradlib_data
-import warnings
-import cmweather
 
 warnings.filterwarnings("ignore")
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
 ```
 
 ## Read a polar data set from the German Weather Service

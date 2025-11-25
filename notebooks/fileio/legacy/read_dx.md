@@ -20,13 +20,9 @@ import wradlib as wrl
 import wradlib_data
 import matplotlib.pyplot as plt
 import warnings
-
-warnings.filterwarnings("ignore")
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
 import numpy as np
+warnings.filterwarnings("ignore")
+
 ```
 
 ## Reading DX-Data

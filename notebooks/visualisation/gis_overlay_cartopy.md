@@ -4,6 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
 kernelspec:
   name: python3
   display_name: Python 3
@@ -19,24 +21,19 @@ kernelspec:
 *Here, we create a map without radar data to concentrate on the other layers.*
 
 ```{code-cell} python
-import wradlib as wrl
-import wradlib_data
-import matplotlib.pyplot as plt
 import warnings
 
-warnings.filterwarnings("ignore")
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
-import numpy as np
-
-# Some more matplotlib tools we will need...
-import matplotlib.ticker as ticker
-from matplotlib.colors import LogNorm
-from mpl_toolkits.axes_grid1 import make_axes_locatable
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
+import numpy as np
+import wradlib as wrl
+import wradlib_data
+from matplotlib.colors import LogNorm
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+
+warnings.filterwarnings("ignore")
 ```
 
 ## Plotting a Digital Elevation Model (DEM)

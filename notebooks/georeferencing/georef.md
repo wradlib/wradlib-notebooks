@@ -4,6 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
 kernelspec:
   name: python3
   display_name: Python 3
@@ -14,20 +16,17 @@ kernelspec:
 # Example for georeferencing a radar dataset
 
 ```{code-cell} python
+import warnings
+
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import numpy as np
 import wradlib as wrl
 import xarray as xr
 import xradar as xd
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib as mpl
 from matplotlib.patches import Rectangle
-import warnings
 
 warnings.filterwarnings("ignore")
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
 ```
 
 **1st step:** Compute centroid coordinates and vertices of all radar bins in WGS84 (longitude and latitude).

@@ -21,10 +21,6 @@ import numpy as np
 import warnings
 
 warnings.filterwarnings("ignore")
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
 ```
 
 GAMIC refers to the commercial [GAMIC Enigma MURAN software](https://www.gamic.com) which exports data in hdf5 format. The concept is quite similar to the {ref}`notebooks/fileio/legacy/read_odim:opera hdf5 (odim_h5)` format.

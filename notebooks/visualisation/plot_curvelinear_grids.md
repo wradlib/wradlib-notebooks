@@ -4,6 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
 kernelspec:
   name: python3
   display_name: Python 3
@@ -79,18 +81,15 @@ If you want to learn more about the matplotlib features used with {func}`wradlib
 First we will look into plotting a **PPI**. We start with importing the necessary modules:
 
 ```{code-cell} python
+import warnings
+
+import matplotlib.pyplot as plt
+import numpy as np
 import wradlib as wrl
 import wradlib_data
 import xarray as xr
-import matplotlib.pyplot as plt
-import warnings
 
 warnings.filterwarnings("ignore")
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
-import numpy as np
 ```
 
 Next, we will load a polar scan from the WRADLIB_DATA folder and prepare it:
@@ -256,7 +255,7 @@ But there is more to know, when using the curvelinear grids! As an example, you 
 ``cgax`` and ``grid_helper`` to change azimuth and range resolution as well as tick labels:
 
 ```{code-cell} python
-from mpl_toolkits.axisartist.grid_finder import FixedLocator, DictFormatter
+from mpl_toolkits.axisartist.grid_finder import DictFormatter, FixedLocator
 
 # cg = {'lon_cycle': 360.}
 cg = {"angular_spacing": 20.0}
@@ -408,7 +407,7 @@ Everything else is much the same and you can do whatever you want as shown in th
 So just a quick example of an cg rhi plot with some decorations. Note, the ``grid_locator1`` for the theta angles is overwritten and now the grid is much finer.
 
 ```{code-cell} python
-from mpl_toolkits.axisartist.grid_finder import FixedLocator, DictFormatter
+from mpl_toolkits.axisartist.grid_finder import DictFormatter, FixedLocator
 
 # reading in GAMIC hdf5 file
 filename = wradlib_data.DATASETS.fetch("hdf5/2014-06-09--185000.rhi.mvol")
@@ -565,8 +564,8 @@ Here the capabilities of [Matplotlib AxesGrid1](https://matplotlib.org/tutorials
 We make a **PPI** now, it matches much better. Just plot your **PPI** data and create an axes divider:
 
 ```{code-cell} python
+from matplotlib.ticker import FuncFormatter, MaxNLocator, NullFormatter
 from mpl_toolkits.axes_grid1 import make_axes_locatable
-from matplotlib.ticker import NullFormatter, FuncFormatter, MaxNLocator
 
 divider = make_axes_locatable(cgax)
 ```
@@ -577,6 +576,7 @@ Now you can easily append more axes to plot some other things, eg a maximum inte
 axMipX = divider.append_axes("top", size=1.2, pad=0.1, sharex=cgax)
 axMipY = divider.append_axes("right", size=1.2, pad=0.1, sharey=cgax)
 ```
+
 <!-- #endregion -->
 
 ```{code-cell} python
@@ -626,8 +626,8 @@ def mip_formatter(x, pos):
 ```
 
 ```{code-cell} python
+from matplotlib.ticker import FuncFormatter, MaxNLocator, NullFormatter
 from mpl_toolkits.axes_grid1 import make_axes_locatable
-from matplotlib.ticker import NullFormatter, FuncFormatter, MaxNLocator
 
 fig = plt.figure(figsize=(10, 8))
 # normal cg plot

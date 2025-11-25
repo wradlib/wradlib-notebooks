@@ -20,11 +20,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import warnings
 
+
 warnings.filterwarnings("ignore")
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
 ```
 
 [IRIS](https://www.vaisala.com/en/products/iris-focus-remote-sensing-software) refers to the commercial Vaisala Sigmet **I**nteractive **R**adar **I**nformation **S**ystem. The Vaisala Sigmet Digital Receivers export data in a [well documented](ftp://ftp.sigmet.com/outgoing/manuals/IRIS_Programmers_Manual.pdf) binary format.

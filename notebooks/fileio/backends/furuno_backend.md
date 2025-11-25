@@ -23,16 +23,13 @@ import wradlib as wrl
 import wradlib_data
 import warnings
 
-warnings.filterwarnings("ignore")
 import matplotlib.pyplot as plt
 import numpy as np
 import xradar as xd
 import xarray as xr
 
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
+warnings.filterwarnings("ignore")
+
 ```
 
 ## Load furuno scn Data

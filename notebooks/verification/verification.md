@@ -4,6 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
 kernelspec:
   name: python3
   display_name: Python 3
@@ -14,18 +16,15 @@ kernelspec:
 # Routine verification measures for radar-based precipitation estimates
 
 ```{code-cell} python
-import wradlib as wrl
-import wradlib_data
 import os
-import numpy as np
-import matplotlib.pyplot as plt
 import warnings
 
+import matplotlib.pyplot as plt
+import numpy as np
+import wradlib as wrl
+import wradlib_data
+
 warnings.filterwarnings("ignore")
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
 ```
 
 ## Extract bin values from a polar radar data set at rain gage locations

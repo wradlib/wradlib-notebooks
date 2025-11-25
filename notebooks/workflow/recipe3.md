@@ -4,6 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
 kernelspec:
   name: python3
   display_name: Python 3
@@ -45,24 +47,19 @@ The base routines are designed to process one GR sweep at a time. If a full GR v
 A **SR** data set is typically organised as arrays with dimensions `(nscan_sr, nray_sr, ngate_sr)`.
 
 ```{code-cell} python
+import datetime as dt
 import warnings
 
-#warnings.filterwarnings("ignore")
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import numpy as np
 import wradlib as wrl
 import wradlib_data
-import matplotlib.pyplot as plt
-import matplotlib as mpl
-
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
-
-import numpy as np
-import datetime as dt
-from osgeo import osr
 import xarray as xr
 import xradar as xd
+from osgeo import osr
+
+warnings.filterwarnings("ignore")
 ```
 
 ## Acquire datafiles
@@ -158,6 +155,8 @@ display(swp)
 
 ```{code-cell} python
 # todo: move to wradlib function
+
+
 def get_grid_polygons(ds):
     x = ds.x
     for i in reversed(range(x.ndim)):

@@ -4,6 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
 kernelspec:
   name: python3
   display_name: Python 3
@@ -25,25 +27,20 @@ This recipe shows a workflow to process radar data provided by the German Weathe
 - *(7)* Plotting a rainfall map using cartesian plot, see {mod}`wradlib.vis`.
 
 ```{code-cell} python
+import glob
+import os
+import warnings
+
+import matplotlib.pyplot as plt
+import numpy as np
 import wradlib as wrl
 import wradlib_data
 import xarray as xr
-import matplotlib.pyplot as plt
-import warnings
 
 warnings.filterwarnings("ignore")
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
-import numpy as np
 ```
 
 ```{code-cell} python
-import glob
-import os
-
-
 def read_data(flist, site):
     """Helper function to read raw data for a list of datetimes <dtimes>"""
     dalist = []
@@ -137,9 +134,9 @@ def bbox(*args):
 ```
 
 ```{code-cell} python
-import zipfile
-import shutil
 import datetime as dt
+import shutil
+import zipfile
 
 # set timer
 start = dt.datetime.now()

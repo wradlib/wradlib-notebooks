@@ -4,6 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
 kernelspec:
   name: python3
   display_name: Python 3
@@ -16,24 +18,19 @@ kernelspec:
 In this notebook, measurements from NEXRAD's KDDC ground radar are used to derive Hydrometeor Partitioning Ratios (HPR) following Pejcic et al. 2025 (in review). This requires the horizontal reflectivity, differential reflectivity, specific differential phase, cross correlation coefficient, temperature information and rain type. The temperature information is derived from sounding and a rain type classification is applied following Park et al. The HPRs for the different hydrometeor classes are then presented.
 
 ```{code-cell} python
-import wradlib as wrl
-import wradlib_data
-import numpy as np
-
+import datetime as dt
+import glob
 import warnings
-warnings.filterwarnings("ignore")
 
 import matplotlib.pyplot as plt
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
-
-import glob
-import xarray as xr
-import datetime as dt
-import xradar as xd
+import numpy as np
 import scipy
+import wradlib as wrl
+import wradlib_data
+import xarray as xr
+import xradar as xd
+
+warnings.filterwarnings("ignore")
 ```
 
 ## Read centroids, covariances and weights

@@ -4,6 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
 kernelspec:
   name: python3
   display_name: Python 3
@@ -24,28 +26,25 @@ The following code is based on [xarray](https://docs.xarray.dev) and [xradar](ht
 ```
 
 ```{code-cell} python
-import wradlib as wrl
 import warnings
 
-warnings.filterwarnings("ignore")
 import matplotlib.pyplot as plt
 import numpy as np
+import wradlib as wrl
 import xarray as xr
 import xradar as xd
 
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
+warnings.filterwarnings("ignore")
 ```
 
 ```{code-cell} python
-import urllib3
-import os
-import io
-import glob
-import shutil
 import datetime
+import glob
+import io
+import os
+import shutil
+
+import urllib3
 ```
 
 ```{code-cell} python
@@ -357,7 +356,6 @@ xd.io.to_cfradial2(vol0, "dwd_cfradial2.nc")
 ```
 
 ## Import again
-
 
 ```{code-cell} python
 vol1 = xd.io.open_odim_datatree("dwd_odim.h5")

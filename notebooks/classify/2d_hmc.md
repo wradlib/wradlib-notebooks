@@ -4,6 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
 kernelspec:
   name: python3
   display_name: Python 3
@@ -14,23 +16,20 @@ kernelspec:
 # Hydrometeorclassification
 
 ```{code-cell} python
+import datetime as dt
+import glob
+import os
+import warnings
+
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import numpy as np
 import wradlib as wrl
 import wradlib_data
 import xarray as xr
-import os
-import numpy as np
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-import warnings
+from scipy import interpolate
 
 warnings.filterwarnings("ignore")
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
-from scipy import interpolate
-import datetime as dt
-import glob
 ```
 
 The hydrometeorclassification code is based on the paper by [Zrnic et.al 2001](https://dx.doi.org/10.1175/1520-0426%282001%29018%3C0892:TAPFAC%3E2.0.CO;2) utilizing 2D trapezoidal membership functions based on the paper by [Straka et. al 2000](https://doi.org/10.1175/1520-0450(2000)039%3C1341:BHCAQU%3E2.0.CO;2) adapted by [Evaristo et. al 2013](https://ams.confex.com/ams/36Radar/webprogram/Paper229078.html) for X-Band.

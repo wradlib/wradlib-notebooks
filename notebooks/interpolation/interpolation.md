@@ -4,6 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
 kernelspec:
   name: python3
   display_name: Python 3
@@ -14,18 +16,15 @@ kernelspec:
 # How to use wradlib's ipol module for interpolation tasks?
 
 ```{code-cell} python
-import wradlib as wrl
-import wradlib_data
-import numpy as np
-import matplotlib.pyplot as plt
 import datetime as dt
 import warnings
 
+import matplotlib.pyplot as plt
+import numpy as np
+import wradlib as wrl
+import wradlib_data
+
 warnings.filterwarnings("ignore")
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
 ```
 
 ## 1-dimensional example
@@ -132,6 +131,8 @@ pl3 = ax.plot(src, vals, "ro", label="Observations")
 
 ```{code-cell} python
 # Just a helper function for repeated subplots
+
+
 def plotall(ax, trgx, trgy, src, interp, pts, title, vmin, vmax):
     ix = np.where(np.isfinite(pts))
     ax.pcolormesh(

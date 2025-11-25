@@ -4,6 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
 kernelspec:
   name: python3
   display_name: Python 3
@@ -20,17 +22,14 @@ In this example, we will compare different approaches to **constrain the gate-by
 Rainfall-induced attenuation is a major source of underestimation for radar-based precipitation estimation at C-band and X-band. Unconstrained forward gate-by-gate correction is known to be inherently unstable and thus not suited for unsupervised quality control procedures. Ideally, reference measurements (e.g. from microwave links) should be used to constrain gate-by-gate procedures. However, such attenuation references are usually not available. $\omega radlib$ provides a pragmatic approach to constrain gate-by-gate correction procedures, inspired by the work of [Kraemer et al., 2008](https://docs.wradlib.org/en/latest/bibliography.html#kraemer2008). It turned out that these procedures can effectively reduce the error introduced by attenuation, and, at the same time, minimize instability issues [(Jacobi et al., 2016)](https://docs.wradlib.org/en/latest/bibliography.html#jacobi2016).
 
 ```{code-cell} python
-import wradlib as wrl
-import wradlib_data
-import matplotlib.pyplot as plt
 import warnings
 
-warnings.filterwarnings("ignore")
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
+import matplotlib.pyplot as plt
 import numpy as np
+import wradlib as wrl
+import wradlib_data
+
+warnings.filterwarnings("ignore")
 ```
 
 ## The Example Event: June 2nd, 2008, SW-Germany
@@ -64,6 +63,8 @@ We see a set of convective cells with high rainfall intensity in the NE-sector o
 
 ```{code-cell} python
 # just a little helper function
+
+
 def plot_beams(data, mybeams, sub=111):
     ax = fig.add_subplot(sub)
     labelsize = 13
@@ -112,6 +113,8 @@ Plotting the result below the reflectivity profile, we obtain the following figu
 
 ```{code-cell} python
 # another little helper function
+
+
 def plot_pia(pia, sub=111, title=None):
     ax = fig.add_subplot(sub)
     labelsize = 13

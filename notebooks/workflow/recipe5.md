@@ -4,6 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
 kernelspec:
   name: python3
   display_name: Python 3
@@ -13,21 +15,17 @@ kernelspec:
 ```
 # Recipe 5: Zonal Statistics - Cartesian Grid
 
-
 ```{code-cell} python
-import wradlib as wrl
-import wradlib_data
-import matplotlib.pyplot as plt
-import matplotlib as mpl
 import warnings
 
-warnings.filterwarnings("ignore")
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
+import matplotlib as mpl
+import matplotlib.pyplot as plt
 import numpy as np
+import wradlib as wrl
+import wradlib_data
 import xarray as xr
+
+warnings.filterwarnings("ignore")
 ```
 
 ## Setup Examples
@@ -87,10 +85,11 @@ def testplot(
 ```
 
 ```{code-cell} python
+import datetime as dt
+
+import matplotlib.patches as patches
 from matplotlib.collections import PatchCollection
 from matplotlib.colors import from_levels_and_colors
-import matplotlib.patches as patches
-import datetime as dt
 from osgeo import osr
 ```
 

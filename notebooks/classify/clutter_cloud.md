@@ -4,6 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.18.1
 kernelspec:
   name: python3
   display_name: Python 3
@@ -14,19 +16,13 @@ kernelspec:
 # Clutter detection by using space-born cloud images
 
 ```{code-cell} python
+import matplotlib.pyplot as plt
 import numpy as np
-
-import xarray as xr
-import xradar as xd
 import wradlib as wrl
 import wradlib_data
-import matplotlib.pyplot as plt
+import xarray as xr
+import xradar as xd
 from osgeo import osr
-
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
 ```
 
 ## Read the radar data into DataTree

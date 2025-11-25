@@ -32,10 +32,6 @@ from pyproj.crs import CRS
 
 warnings.filterwarnings("ignore")
 
-try:
-    get_ipython().run_line_magic("matplotlib inline")
-except:
-    plt.ion()
 ```
 
 ## Step 1: Read the original data
