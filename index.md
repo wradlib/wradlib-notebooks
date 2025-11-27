@@ -32,4 +32,5 @@ Gauge Adjustment <notebooks/multisensor/gauge_adjustment>
 Verification <notebooks/verification/verification>
 Zonal Statistics <notebooks/zonalstats/zonalstats>
 Recipes <notebooks/workflow/recipes>
+RADOLAN Guide <https://docs.wradlib.org/projects/radolan>
 ```
