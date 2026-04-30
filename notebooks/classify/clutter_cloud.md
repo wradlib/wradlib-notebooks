@@ -42,8 +42,8 @@ display(pvol)
 pvol1 = pvol.match("sweep*")
 display(pvol1)
 vol = []
-for sweep in pvol1.values():
-    vol.append(sweep.to_dataset().pipe(wrl.georef.georeference))
+for sweep in pvol1:
+    vol.append(pvol[sweep].to_dataset(inherit="all_coords").pipe(wrl.georef.georeference))
 vol = xr.concat(vol, dim="tilt")
 vol = vol.assign_coords(sweep_mode=vol.sweep_mode)
 display(vol)

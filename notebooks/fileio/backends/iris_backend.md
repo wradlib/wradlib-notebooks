@@ -66,7 +66,7 @@ display(vol["sweep_0"])
 ## Georeferencing
 
 ```{code-cell} python
-swp = vol["sweep_0"].ds.copy()
+swp = vol["sweep_0"].to_dataset(inherit="all_coords")
 swp = swp.assign_coords(sweep_mode=swp.sweep_mode)
 swp = swp.wrl.georef.georeference()
 ```
