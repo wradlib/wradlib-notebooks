@@ -46,7 +46,7 @@ proj = osr.SpatialReference()
 proj.ImportFromEPSG(32632)
 for key in list(raw_dt.children):
     if "sweep" in key:
-        raw_dt[key].ds = raw_dt[key].ds.wrl.georef.georeference(crs=proj)
+        raw_dt[key].ds = raw_dt[key].to_dataset(inherit="all_coords").wrl.georef.georeference(crs=proj)
 ```
 
 ```{code-cell} python

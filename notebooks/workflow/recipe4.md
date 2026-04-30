@@ -259,7 +259,7 @@ fig.delaxes(gs.flat[-1])
 
 ```{code-cell} python
 vol0 = vol.isel(volume_time=0)
-swp = vol0["sweep_9"].ds
+swp = vol0["sweep_9"].to_dataset(inherit="all_coords")
 ```
 
 ```{code-cell} python

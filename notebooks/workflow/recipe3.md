@@ -129,7 +129,7 @@ display(gr_data)
 #### Extract relevant GR data and meta-data
 
 ```{code-cell} python
-swp = gr_data[f"sweep_{ee}"].ds
+swp = gr_data[f"sweep_{ee}"].to_dataset(inherit="all_coords")
 swp = swp.set_coords("sweep_mode")
 display(swp)
 print(swp.sweep_fixed_angle.values)

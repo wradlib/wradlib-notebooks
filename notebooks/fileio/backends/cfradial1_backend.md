@@ -68,7 +68,7 @@ display(vol["sweep_0"])
 ``sweep_mode`` is assigned coordinate, as we need it available on the DataArray.
 
 ```{code-cell} python
-swp = vol["sweep_0"].ds
+swp = vol["sweep_0"].to_dataset(inherit="all_coords")
 swp = swp.assign_coords(sweep_mode=swp.sweep_mode)
 swp = swp.wrl.georef.georeference()
 display(swp)

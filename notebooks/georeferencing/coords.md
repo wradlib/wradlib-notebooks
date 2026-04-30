@@ -42,7 +42,7 @@ display(pvol)
 ```{code-cell} python
 for key in list(pvol.children):
     if "sweep" in key:
-        pvol[key].ds = pvol[key].ds.wrl.georef.georeference()
+        pvol[key].ds = pvol[key].to_dataset(inherit="all_coords").wrl.georef.georeference()
 ```
 
 ```{code-cell} python
